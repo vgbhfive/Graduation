@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/graduation?serverTimezone=GMT%2B8
     username: root
-    password: 9756111
+    password: xxxx
   jpa:
     hibernate:
       ddl-auto: update
@@ -25,6 +25,6 @@ spring:
   mail:
     host: smtp.qq.com
     username: vgbhfive@foxmail.com
-    password: acbwvtrurguebbge
+    password: xxxx
     default-encoding: utf-8
 
