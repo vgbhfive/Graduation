@@ -22,18 +22,16 @@ public class Loan {
     @GeneratedValue
     private Long loanId; //贷款ID
 
-    private int money; //金额
+    private Integer money; //金额
 
-    private int returnDate; //归还时间(单位:月)
+    private Integer returnDate; //归还时间(单位:月)
 
     private String type; //类型
 
-    private float intrate; //利率
+    private Float intrate; //利率
 
-    private float odds; //赔率
+    private Float odds; //赔率
 
     private String content; //内容
 
-    public Loan() {
-    }
 }

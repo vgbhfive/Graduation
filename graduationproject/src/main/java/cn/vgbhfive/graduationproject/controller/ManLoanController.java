@@ -19,12 +19,12 @@ public class ManLoanController {
     @Autowired
     private ManLoanService manLoanService;
 
-    @GetMapping(name = "/one/{loanId}")
+    @GetMapping("/one/{loanId}")
     public ReturnResult findone(@PathVariable Long loanId) {
         return manLoanService.findOne(loanId);
     }
 
-    @GetMapping(name = "/all/{userId}")
+    @GetMapping("/all/{userId}")
     public ReturnResult findAll(@PathVariable Long userId) {
         return manLoanService.findAll(userId);
     }

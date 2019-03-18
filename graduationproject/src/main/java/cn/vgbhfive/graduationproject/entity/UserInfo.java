@@ -20,7 +20,7 @@ import java.util.Date;
 public class UserInfo {
 
     @Id
-    private long userId; //用户ID
+    private Long userId; //用户ID
 
     private String idCard; //身份证
 
@@ -31,8 +31,5 @@ public class UserInfo {
     private Date registerDate; //注册时间
 
     private Date preUpdateDate; //上一次更新时间
-
-    public UserInfo() {
-    }
 
 }

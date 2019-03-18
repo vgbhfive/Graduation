@@ -47,16 +47,12 @@ public class UserService {
 
     /**
      * 判断是否重复注册用户名
-     * @param repeatUser
+     * @param userId
      * @return 是否重复注册
      */
-    public ReturnResult repeatUser(Map<String, String> repeatUser) {
-        if (userRepository.findByUsernameIsNull(repeatUser.get("username"))) {
-            return ReturnResult.ok("No User Registration!");
-        } else {
-            logger.error("Repeat Register!");
-            return ReturnResult.error(403, "Repeat Registration!");
-        }
+    public ReturnResult repeatUser(Long userId) {
+        Boolean repeat = userRepository.existsById(userId);
+        return ReturnResult.ok(repeat);
     }
 
 }

@@ -21,20 +21,18 @@ public class DayInOut {
 
     @Id
     @GeneratedValue
-    private long dayId; //日常支出收入ID
+    private Long dayId; //日常支出收入ID
 
-    private long userId; //用户ID
+    private Long userId; //用户ID
 
-    private int money; //金额
+    private Integer money; //金额
 
     private Date date; //日期
 
     private String howUse; //用途
 
-    private boolean income; //收入还是支出
+    private Boolean income; //收入还是支出
 
     private String content; //内容
 
-    public DayInOut() {
-    }
 }

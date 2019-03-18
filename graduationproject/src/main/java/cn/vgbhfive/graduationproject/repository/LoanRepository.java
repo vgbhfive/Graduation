@@ -1,13 +1,14 @@
 package cn.vgbhfive.graduationproject.repository;
 
-import cn.vgbhfive.graduationproject.entity.ManagenmentAsset;
+import cn.vgbhfive.graduationproject.entity.Loan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * @time: 2019/03/17
+ * @time: 2019/03/18
  * @author: Vgbh
  */
 @Repository
-public interface ManAssetsRepository extends JpaRepository<ManagenmentAsset, Long> {
+public interface LoanRepository extends JpaRepository<Loan, Long> {
+
 }

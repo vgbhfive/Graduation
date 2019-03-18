@@ -1,6 +1,8 @@
 package cn.vgbhfive.graduationproject.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -13,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class URLController {
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @GetMapping("/home")
     public String homeURL() {
         return "home";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @GetMapping("/register")
     public String registerURL() {
         return "view/register";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping("/login")
     public String loginURL() {
         return "view/login";
     }

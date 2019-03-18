@@ -25,7 +25,7 @@ public class UserInfoService {
      * @param userInfomation
      * @return 个人信息
      */
-    public ReturnResult save(Map<String, Object> userInfomation) {
+    public ReturnResult save(Map<String, String> userInfomation) {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserId(Long.parseLong(String.valueOf(userInfomation.get("userId"))));
         userInfo.setIdCard(String.valueOf(userInfomation.get("idCard")));

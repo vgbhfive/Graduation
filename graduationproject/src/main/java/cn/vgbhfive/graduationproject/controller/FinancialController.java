@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: Vgbh
  */
 @RestController
-@RequestMapping("/finanical")
+@RequestMapping("/finan")
 public class FinancialController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class FinancialController {
      * 理财信息集合
      * @return 理财项目的所有信息
      */
-    @GetMapping(name = "/findall")
+    @GetMapping("/all")
     public ReturnResult findAll() {
         return finanicalService.findAll();
     }
@@ -33,7 +33,7 @@ public class FinancialController {
      * @param id
      * @return 单个理财信息
      */
-    @GetMapping(name = "/findone/{id}")
+    @GetMapping("/one/{id}")
     public ReturnResult findOne(@PathVariable Long id) {
         return finanicalService.findOne(id);
     }

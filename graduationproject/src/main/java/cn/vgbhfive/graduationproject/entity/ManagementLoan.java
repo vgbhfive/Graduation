@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 /**
@@ -23,20 +24,18 @@ public class ManagementLoan {
     @GeneratedValue
     private Long loanId; //贷款ID
 
-    private long userId; //用户ID
+    private Long userId; //用户ID
 
-    private int money; //金额
+    private Integer money; //金额
 
     private String type; //类型
 
     private Date date; //时间
 
-    private int returnTime; //返还时间(单位：月)
+    private Integer returnTime; //返还时间(单位：月)
 
-    private float intrate; //利率
+    private Float intrate; //利率
 
     private String content; //内容
 
-    public ManagementLoan() {
-    }
 }

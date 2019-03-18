@@ -1,0 +1,60 @@
+package cn.vgbhfive.graduationproject.service;
+
+import cn.vgbhfive.graduationproject.entity.Loan;
+import cn.vgbhfive.graduationproject.model.ReturnResult;
+import cn.vgbhfive.graduationproject.repository.LoanRepository;
+import org.hibernate.loader.plan.exec.process.spi.ReturnReader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @time: 2019/03/18
+ * @author: Vgbh
+ */
+@Service
+public class LoanService {
+
+    @Autowired
+    private LoanRepository loanRepository;
+
+    /**
+     * 持久化贷款数据信息
+     * @param loan
+     * @return 贷款信息
+     */
+    public ReturnResult save(Map<String, String> loan) {
+        Loan l = new Loan();
+        l.setMoney(Integer.parseInt(loan.get("money")));
+        l.setReturnDate(Integer.parseInt(loan.get("returndate")));
+        l.setType(loan.get("type"));
+        l.setIntrate(Float.parseFloat(loan.get("intrate")));
+        l.setOdds(Float.parseFloat(loan.get("odds")));
+        l.setContent(loan.get("content"));
+
+        Loan save = loanRepository.save(l);
+
+        return ReturnResult.ok(save);
+    }
+
+    /**
+     * 所有的贷款信息
+     * @return 贷款信息集合
+     */
+    public ReturnResult all() {
+        List<Loan> loans = loanRepository.findAll();
+        return ReturnResult.ok(loans);
+    }
+
+    /**
+     * 一条贷款信息
+     * @return 贷款信息
+     */
+    public ReturnResult one(Long loanId) {
+        Loan loan = loanRepository.getOne(loanId);
+        return ReturnResult.ok(loan);
+    }
+
+}

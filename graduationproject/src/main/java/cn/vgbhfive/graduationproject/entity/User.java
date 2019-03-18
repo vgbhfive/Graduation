@@ -20,7 +20,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private long id; //用户ID
+    private Long id; //用户ID
 
     private String username; //用户名
 
