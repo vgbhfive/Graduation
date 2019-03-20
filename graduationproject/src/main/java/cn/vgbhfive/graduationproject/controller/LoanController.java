@@ -19,20 +19,27 @@ public class LoanController {
     @Autowired
     private LoanService loanService;
 
-    @PostMapping("/save")
+    @PostMapping(value = "/save")
     @PreAuthorize("hasRole('ADMIN')")
     public ReturnResult saveOne(@RequestBody Map<String, String> loan) {
         return loanService.save(loan);
     }
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all")
     public ReturnResult findAll() {
         return loanService.all();
     }
 
-    @GetMapping("/one/{loanId}")
+    @GetMapping(value = "/one/{loanId}")
     public ReturnResult findOne(@PathVariable Long loanId) {
         return loanService.one(loanId);
     }
+
+    @PostMapping(value = "/update")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ReturnResult updateOne(@RequestBody Map<String, String> loan) {
+        return loanService.update(loan);
+    }
+
 
 }

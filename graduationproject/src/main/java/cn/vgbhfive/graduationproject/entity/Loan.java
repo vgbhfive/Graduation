@@ -2,10 +2,7 @@ package cn.vgbhfive.graduationproject.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 贷款信息表
@@ -19,7 +16,7 @@ import javax.persistence.Table;
 public class Loan {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long loanId; //贷款ID
 
     private Integer money; //金额

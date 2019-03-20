@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: Vgbh
  */
 @RestController
-@RequestMapping(name = "/assets")
+@RequestMapping("/assets")
 public class ManAssetsController {
 }

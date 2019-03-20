@@ -1,6 +1,6 @@
 package cn.vgbhfive.graduationproject.repository;
 
-import cn.vgbhfive.graduationproject.entity.FinancialInfo;
+import cn.vgbhfive.graduationproject.entity.Financial;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @author: Vgbh
  */
 @Repository
-public interface FinanicalRepository extends JpaRepository<FinancialInfo, Long> {
+public interface FinanicalRepository extends JpaRepository<Financial, Long> {
 
 }

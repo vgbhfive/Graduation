@@ -2,10 +2,7 @@ package cn.vgbhfive.graduationproject.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -17,11 +14,11 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "management_asset")
-public class ManagenmentAsset {
+@Table(name = "man_asset")
+public class ManAsset {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //ID
 
     private Long userId; //用户ID

@@ -24,19 +24,19 @@ public class UserController {
     @Autowired
     private UserInfoService userInfoService;
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     public ReturnResult registerUser(@RequestBody Map<String,String> registerUser){
         return userService.save(registerUser);
     }
 
     // /auth/login登陆接口，Spring Security自己实现
 
-    @GetMapping("/repeatUser/{userId}")
+    @GetMapping(value = "/repeatUser/{userId}")
     public ReturnResult repeatUser(@PathVariable Long userId) {
         return userService.repeatUser(userId);
     }
 
-    @PostMapping("/userinfo")
+    @PostMapping(value = "/userinfo")
     public ReturnResult infoUser() {
         return null;
     }

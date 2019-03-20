@@ -6,7 +6,9 @@ import cn.vgbhfive.graduationproject.repository.LoanRepository;
 import org.hibernate.loader.plan.exec.process.spi.ReturnReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +57,31 @@ public class LoanService {
     public ReturnResult one(Long loanId) {
         Loan loan = loanRepository.getOne(loanId);
         return ReturnResult.ok(loan);
+    }
+
+    /**
+     * 更新一条贷款信息
+     * @param loan
+     * @return 贷款信息
+     */
+    public ReturnResult update(Map<String, String> loan) {
+        Loan sel = loanRepository.getOne(Long.parseLong(loan.get("loanId")));
+        if (sel == null) {
+            return ReturnResult.error(403, "No This Loan!");
+        }
+        Loan l = new Loan();
+        l.setLoanId(Long.parseLong(loan.get("loanId")));
+        l.setMoney(Integer.parseInt(loan.get("money")));
+        l.setReturnDate(Integer.parseInt(loan.get("returnDate")));
+        l.setType(loan.get("type"));
+        l.setOdds(Float.parseFloat(loan.get("odds")));
+        l.setIntrate(Float.parseFloat(loan.get("intrate")));
+        l.setContent(loan.get("content"));
+
+        loanRepository.delete(sel);
+        Loan save = loanRepository.save(l);
+
+        return ReturnResult.ok(save);
     }
 
 }

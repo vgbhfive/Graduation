@@ -8,10 +8,7 @@ import org.springframework.data.repository.query.ReturnedType;
 import org.springframework.stereotype.Service;
 
 import javax.security.sasl.SaslClient;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @time: 2019/03/13
@@ -39,7 +36,7 @@ public class DayService {
     /**
      * 持久化日常支出或收入信息
      * @param dayInOut
-     * @return 日常收入或支出记录
+     * @return 日常收入或支出信息
      */
     public ReturnResult save(Map<String, String> dayInOut) {
         DayInOut day = new DayInOut();
@@ -57,7 +54,7 @@ public class DayService {
     /**
      * 修改日常支出或收入信息
      * @param dayInOut
-     * @return 修改后的日常或支出信息
+     * @return 日常收入或支出信息
      */
     public ReturnResult update(Map<String, String> dayInOut) {
         DayInOut day = dayRepository.getOne(Long.valueOf(dayInOut.get("dayId")));
@@ -77,6 +74,27 @@ public class DayService {
         dayRepository.delete(day); //删除原信息
         DayInOut ret = dayRepository.save(save); //添加修改后的信息
         return ReturnResult.ok(ret);
+    }
+
+    /**
+     * 总计个人的全部支出和收入信息
+     * @param userId
+     * @return 支出或收入的总和
+     */
+    public ReturnResult total(Long userId) {
+        List<DayInOut> days = dayRepository.findAllByUserId(userId);
+        Map<String, Integer> total = new HashMap<>();
+        Integer sum = 0;
+        for (DayInOut day : days) {
+            if (day.getIncome()) {
+                sum += day.getMoney(); //收入
+            } else {
+                sum -= day.getMoney(); //支出
+            }
+        }
+        total.put("Total Money", sum);
+
+        return ReturnResult.ok(total);
     }
 
 }

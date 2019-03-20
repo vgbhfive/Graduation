@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class URLController {
 
-    @GetMapping("/home")
+    @GetMapping(value = {"/home", "/"})
     public String homeURL() {
         return "home";
     }
 
-    @GetMapping("/register")
+    @GetMapping(value = "/register")
     public String registerURL() {
         return "view/register";
     }
 
-    @GetMapping("/login")
+    @GetMapping(value = "/login")
     public String loginURL() {
         return "view/login";
     }

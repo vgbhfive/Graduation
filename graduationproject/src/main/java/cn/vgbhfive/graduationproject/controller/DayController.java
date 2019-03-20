@@ -18,19 +18,24 @@ public class DayController {
     @Autowired
     private DayService dayService;
 
-    @GetMapping("/all/{userId}")
+    @GetMapping(value = "/all/{userId}")
     public ReturnResult getAllDayInOut(@PathVariable Long userId) {
         return dayService.findAllDayInOut(userId);
     }
 
-    @PostMapping("/saveone")
+    @PostMapping(value = "/save")
     public ReturnResult saveOne(@RequestBody Map<String, String> dayInOut) {
         return dayService.save(dayInOut);
     }
 
-    @PostMapping("/updateone")
+    @PostMapping(value = "/updateone")
     public ReturnResult updateOne(@RequestBody Map<String, String> dayInOut) {
         return dayService.update(dayInOut);
+    }
+
+    @GetMapping(value = "/total/{userId}")
+    public ReturnResult total(@PathVariable Long userId) {
+        return dayService.total(userId);
     }
 
 }

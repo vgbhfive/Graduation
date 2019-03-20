@@ -1,6 +1,6 @@
 package cn.vgbhfive.graduationproject.repository;
 
-import cn.vgbhfive.graduationproject.entity.ManagenmentAsset;
+import cn.vgbhfive.graduationproject.entity.ManAsset;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @author: Vgbh
  */
 @Repository
-public interface ManAssetsRepository extends JpaRepository<ManagenmentAsset, Long> {
+public interface ManAssetsRepository extends JpaRepository<ManAsset, Long> {
 }

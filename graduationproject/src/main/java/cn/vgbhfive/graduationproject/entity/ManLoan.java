@@ -2,10 +2,7 @@ package cn.vgbhfive.graduationproject.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
@@ -17,12 +14,12 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "management_loan")
-public class ManagementLoan {
+@Table(name = "man_loan")
+public class ManLoan {
 
     @Id
-    @GeneratedValue
-    private Long loanId; //贷款ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long manloanId; //贷款ID
 
     private Long userId; //用户ID
 
@@ -32,7 +29,7 @@ public class ManagementLoan {
 
     private Date date; //时间
 
-    private Integer returnTime; //返还时间(单位：月)
+    private Integer deadline; //期限(单位：月)
 
     private Float intrate; //利率
 

@@ -1,6 +1,6 @@
 package cn.vgbhfive.graduationproject.service;
 
-import cn.vgbhfive.graduationproject.entity.FinancialInfo;
+import cn.vgbhfive.graduationproject.entity.Financial;
 import cn.vgbhfive.graduationproject.model.ReturnResult;
 import cn.vgbhfive.graduationproject.repository.FinanicalRepository;
 import org.slf4j.Logger;
@@ -27,8 +27,8 @@ public class FinanicalService {
      * @return 所有的理财信息
      */
     public ReturnResult findAll() {
-        List<FinancialInfo> all = finanicalRepository.findAll();
-        return ReturnResult.ok(all);
+        List<Financial> financials = finanicalRepository.findAll();
+        return ReturnResult.ok(financials);
     }
 
     /**
@@ -37,7 +37,7 @@ public class FinanicalService {
      * @return 理财信息
      */
     public ReturnResult findOne(Long id) {
-        FinancialInfo financial = finanicalRepository.getOne(id);
+        Financial financial = finanicalRepository.getOne(id);
         return ReturnResult.ok(financial);
     }
 
