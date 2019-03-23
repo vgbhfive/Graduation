@@ -33,7 +33,7 @@ public class ManLoanController {
         return manLoanService.save(manLoan);
     }
 
-    @PostMapping(name = "/delete/{manloanId}")
+    @PostMapping(value = "/delete/{manloanId}")
     public ReturnResult deleteOne(@PathVariable Long manloanId) {
         return manLoanService.delete(manloanId);
     }

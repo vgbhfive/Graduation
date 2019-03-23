@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 /**
- * 用户信息操作服务
+ * 用户注册操作服务
  *
  * @time: 2019/1/30
  * @author: Vgbh
@@ -43,16 +43,6 @@ public class UserService {
 
         logger.info(save.toString());
         return ReturnResult.ok(save);
-    }
-
-    /**
-     * 判断是否重复注册用户名
-     * @param userId
-     * @return 是否重复注册
-     */
-    public ReturnResult repeatUser(Long userId) {
-        Boolean repeat = userRepository.existsById(userId);
-        return ReturnResult.ok(repeat);
     }
 
 }

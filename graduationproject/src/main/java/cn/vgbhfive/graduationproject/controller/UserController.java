@@ -31,14 +31,24 @@ public class UserController {
 
     // /auth/login登陆接口，Spring Security自己实现
 
-    @GetMapping(value = "/repeatUser/{userId}")
+    @GetMapping(value = "/userinfo/{userId}")
     public ReturnResult repeatUser(@PathVariable Long userId) {
-        return userService.repeatUser(userId);
+        return userInfoService.repeat(userId);
     }
 
-    @PostMapping(value = "/userinfo")
-    public ReturnResult infoUser() {
-        return null;
+    @PostMapping(value = "/userinfo/save")
+    public ReturnResult save(@RequestBody Map<String, String> userinfo) {
+        return userInfoService.save(userinfo);
+    }
+
+    @GetMapping(value = "/userinfo/one/{userId}")
+    public ReturnResult one(@PathVariable Long userId) {
+        return userInfoService.one(userId);
+    }
+
+    @PostMapping(value = "/userinfo/update")
+    public ReturnResult update(@RequestBody Map<String, String> userinfo) {
+        return userInfoService.update(userinfo);
     }
 
 }

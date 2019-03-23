@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
 
@@ -16,12 +18,13 @@ import javax.mail.internet.MimeMessage;
  * @time: 2019/03/09
  * @author: Vgbh
  */
+@Component
 public class EmailUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailUtils.class);
 
     @Autowired
-    private static JavaMailSender javaMailSender;
+    private static JavaMailSender javaMailSender; //null
 
     @Value("${spring.mail.username}")
     private static String from;
@@ -43,11 +46,12 @@ public class EmailUtils {
         try {
             javaMailSender.send(mail);
             logger.info("Send Simple Mail Successful!");
+            return true;
         } catch (Exception e) {
-            logger.error("Send Simple Mail Error! " + e);
+            logger.info("Send Simple Mail Error! " + e);
+            e.printStackTrace();
             return false;
         }
-        return true;
     }
 
     /**
@@ -69,11 +73,11 @@ public class EmailUtils {
 
             javaMailSender.send(message);
             logger.info("Send Simple Mail Successful!");
+            return true;
         } catch (Exception e) {
-            logger.error("Send MiME Mail Error! "+ e);
+            logger.info("Send MiME Mail Error! "+ e);
             return false;
         }
-        return true;
     }
 
 
