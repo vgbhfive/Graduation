@@ -1,5 +1,6 @@
 package cn.vgbhfive.graduationproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "loan")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Loan {
 
     @Id
@@ -29,6 +31,6 @@ public class Loan {
 
     private Float odds; //赔率
 
-    private String content; //内容
+    private String contents; //内容
 
 }

@@ -7,6 +7,7 @@
 
     <script type="text/javascript" th:src="@{js/jquery-1.11.1.js}"></script>
     <script type="text/javascript" th:src="@{js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}" />  
 
     <!--[if lt IE 9]
@@ -16,7 +17,7 @@
 
     <style>
         body {
-            padding-top: 50px;
+            padding-top: 30px;
             padding-bottom: 40px;
             color: #5a5a5a;
         }
@@ -83,11 +84,12 @@
 
         }
     </style>
+
 </head>
 
-<body>
+<body onload="testData()">
 
-<!-- 顶部导航 -->
+<!--顶部导航-->
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="menu-nav">
     <div class="container">
         <div class="navbar-header">
@@ -120,9 +122,9 @@
         </div>
     </div>
 </div>
+<!--顶部导航结束-->
 
-
-<!-- 广告轮播 -->
+<!--广告轮播-->
 <div id="ad-carousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#ad-carousel" data-slide-to="0" class="active"></li>
@@ -134,58 +136,18 @@
     <div class="carousel-inner">
         <div class="item active">
             <img th:src="@{~/images/coin.jpg}" alt="1 slide">
-
-            <!-- <div class="container">
-                <div class="carousel-caption">
-                    <h1>Chrome</h1>
-                    <p>Google Chrome，又称Google浏览器，是一个由Google（谷歌）公司开发的网页浏览器。</p>
-                    <p><a class="btn btn-lg btn-primary" href="http://www.google.cn/intl/zh-CN/chrome/browser/" role="button" target="_blank">点我下载</a></p>
-                </div>
-            </div> -->
         </div>
         <div class="item">
             <img th:src="@{~/images/stock.jpg}" alt="2 slide">
-
-            <!-- <div class="container">
-                <div class="carousel-caption">
-                    <h1>Firefox</h1>
-                    <p>Mozilla Firefox，中文名通常称为“火狐”或“火狐浏览器”，是一个开源网页浏览器。</p>
-                    <p><a class="btn btn-lg btn-primary" href="http://www.firefox.com.cn/download/" target="_blank" role="button">点我下载</a></p>
-                </div>
-            </div> -->
         </div>
         <div class="item">
             <img th:src="@{~/images/bitcoin.jpg}" alt="3 slide">
-
-            <!-- <div class="container">
-                <div class="carousel-caption">
-                    <h1>Safari</h1>
-                    <p>Safari，是苹果计算机的最新操作系统Mac OS X中的浏览器。</p>
-                    <p><a class="btn btn-lg btn-primary" href="http://www.apple.com/cn/safari/" target="_blank" role="button">点我下载</a></p>
-                </div>
-            </div> -->
         </div>
         <div class="item">
             <img th:src="@{~/images/star.jpg}" alt="4 slide">
-
-            <!-- <div class="container">
-                <div class="carousel-caption">
-                    <h1>Opera</h1>
-                    <p>Opera浏览器，是一款挪威Opera Software ASA公司制作的支持多页面标签式浏览的网络浏览器。</p>
-                    <p><a class="btn btn-lg btn-primary" href="http://www.opera.com/zh-cn" target="_blank"role="button">点我下载</a></p>
-                </div>
-            </div> -->
         </div>
         <div class="item">
             <img th:src="@{~/images/finance.png}" alt="5 slide">
-
-            <!-- <div class="container">
-                <div class="carousel-caption">
-                    <h1>IE</h1>
-                    <p>Internet Explorer，简称 IE，是微软公司推出的一款网页浏览器。</p>
-                    <p><a class="btn btn-lg btn-primary" href="http://ie.microsoft.com/" target="_blank" role="button">点我下载</a></p>
-                </div>
-            </div> -->
         </div>
     </div>
     <a class="left carousel-control" href="#ad-carousel" data-slide="prev"><span
@@ -193,12 +155,12 @@
     <a class="right carousel-control" href="#ad-carousel" data-slide="next"><span
             class="glyphicon glyphicon-chevron-right"></span></a>
 </div>
+<!--广告轮播结束-->
 
-
-<!-- 主要内容 -->
+<!--主要内容-->
 <div class="container summary">
 
-    <!-- 应用栏 -->
+    <!--应用栏-->
     <ul class="nav nav-tabs" role="tablist" id="feature-tab">
         <li class="active"><a href="#tab-day" role="tab" data-toggle="tab">日常收支</a></li>
         <li><a href="#tab-finance" role="tab" data-toggle="tab">个人理财</a></li>
@@ -207,51 +169,447 @@
         <li><a href="#tab-utils" role="tab" data-toggle="tab">小工具</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab-chrome">
+        <div class="tab-pane active" id="tab-day">
             <div class="row feature">
-                <!-- <div class="col-md-7">
-
-                    <h2 class="feature-heading"> <span
-                            class="text-muted">使用最广的浏览器</span></h2>
-
-                    <p class="lead">Google Chrome，又称Google浏览器，是一个由Google（谷歌）公司开发的网页浏览器。
-                        该浏览器是基于其他开源软件所撰写，包括WebKit，目标是提升稳定性、速度和安全性，并创造出简单且有效率的使用者界面。</p>
-                </div>
-                <div class="col-md-5">
-                    <img class="feature-image img-responsive" src="images/chrome-logo.jpg"
-                         alt="Chrome">
-                </div> -->
                 <!-- 日常收支 -->
-                <div style="height: 500px; background-color: blue;"></div>
+                <div style="width: 700px; padding-top: 30px; margin: 0 auto;">
+                    <form>
+                        <div class="form-group">
+                            <label for="use_Money">Use Money</label>
+                            <input type="text" class="form-control" value="" placeholder="0" id="use_Money">
+                        </div>
+                        <div class="form-group">
+                            <label for="income">Income(1/0)</label>
+                            <input type="text" class="form-control" value="" placeholder="1" id="income">
+                        </div>
+                        <div class="form-group">
+                            <label for="how_Use">How Use</label>
+                            <select class="form-control" id="how_Use">
+                                <option>日常饮食</option>
+                                <option>交通出行</option>
+                                <option>服饰美容</option>
+                                <option>住房缴费</option>
+                                <option>文教健康</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="datetimes">Datatime</label>
+                            <input type="date" class="form-control" id="datetimes">
+                        </div>
+                        <div class="form-group">
+                            <label for="other_Contents">Other Contents</label>
+                            <textarea class="form-control" rows="3" placeholder="无" id="other_Contents"></textarea>
+                        </div>
+                        <div class="form-group" style="padding-left: 150px; padding-right: 200px;">
+                            <button type="button" class="btn btn-primary" id="day_Input_Output" onclick="dayInputOutput()">确认</button>
+                            <button type="button" class="btn btn-primary" id="day_Reset" onclick="dayReset()" style="float: right;">重置</button>
+                        </div>
+                    </form>
+                </div>
+                <!--日常收支结束-->
             </div>
         </div>
-        <div class="tab-pane" id="tab-firefox">
+        <div class="tab-pane" id="tab-finance">
             <div class="row feature">
                 <!-- 个人理财 -->
                 <div style="height: 500px; background-color: red;"></div>
+                <!--个人理财结束-->
             </div>
         </div>
-        <div class="tab-pane" id="tab-safari">
+        <div class="tab-pane" id="tab-debt">
             <div class="row feature">
                 <!-- 债务管理 -->
                 <div style="height: 500px; background-color: black;"></div>
+                <!--债务管理结束-->
             </div>
         </div>
-        <div class="tab-pane" id="tab-opera">
+        <div class="tab-pane" id="tab-loan">
             <div class="row feature">
                 <!-- 财务管理 -->
                 <div style="height: 500px; background-color: pink;"></div>
+                <!--财务管理结束-->
             </div>
         </div>
-        <div class="tab-pane" id="tab-ie">
+        <div class="tab-pane" id="tab-utils">
             <div class="row feature">
                 <!-- 小工具 -->
-                <div style="height: 500px; background-color: purple;"></div>
+                <div>
+                    <ul class="nav nav-tabs" role="tablist" id="feature-tab-utils">
+                        <li class="active"><a href="#tab-one" role="tab" data-toggle="tab">汇率兑换计算</a></li>
+                        <li><a href="#tab-two" role="tab" data-toggle="tab">个人所得税计算</a></li>
+                        <li><a href="#tab-three" role="tab" data-toggle="tab">住房公积金计算</a></li>
+                        <li><a href="#tab-four" role="tab" data-toggle="tab">养老保险计算</a></li>
+                        <li><a href="#tab-five" role="tab" data-toggle="tab"> 活期储蓄计算</a></li>
+                        <li><a href="#tab-six" role="tab" data-toggle="tab">教育储蓄计算</a></li>
+                        <li><a href="#tab-seven" role="tab" data-toggle="tab">个人贷款计算</a></li>
+                        <li><a href="#tab-eight" role="tab" data-toggle="tab">债务收益计算</a></li>
+                    </ul>
+
+                    <!--工具Tab-->
+                    <div class="tab-content">
+                        <!-- 汇率兑换 -->
+                        <div class="tab-pane active" id="tab-one">
+                            <div style="width: 600px; padding-left: 20%; padding-top: 70px;">
+                                <label>持有币种:</label>
+                                <select id="buy_Currency">
+                                    <option value="None">-请选择币种-</option>
+                                    <option value="Rmb">人民币</option>
+                                    <option value="Dollar">美元</option>
+                                    <option value="Pound">英镑</option>
+                                    <option value="Euro">欧元</option>
+                                    <option value="Yen">日元</option>
+                                    <option value="HK">港币</option>
+                                    <option value="Franc">法郎</option>
+                                </select>
+                                <br><br>
+                                <label>持有金额:</label>
+                                <input type="text" value="0" id="have_Money">
+                                <label>元</label>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary" id="change_Money" onclick="changeMoney()">兑换</button>
+                                <br><br>
+                                <label>兑换币种:</label>
+                                <select id="buy_Currency2">
+                                    <option value="None">-请选择币种-</option>
+                                    <option value="Rmb">人民币</option>
+                                    <option value="Dollar">美元</option>
+                                    <option value="Pound">英镑</option>
+                                    <option value="Euro">欧元</option>
+                                    <option value="Yen">日元</option>
+                                    <option value="HK">港币</option>
+                                    <option value="Franc">法郎</option>
+                                </select>
+                                <br><br>
+                                <label>兑换金额:</label>
+                                <input type="text" value="0" id="have_Money2">
+                                <label>元</label>
+                            </div>
+                        </div>
+                        <!-- 个人所得税计算 -->
+                        <div class="tab-pane" id="tab-two">
+                            <div style="width: 600px; padding-left: 20%; padding-top: 70px;">
+                                <label>收入类型: &nbsp;&nbsp;&nbsp;</label>
+                                <select id="income_Type" onchange="incomeType()">
+                                    <option value="None">-请选择收入类型-</option>
+                                    <option value="WaterBefore">税前月薪</option>
+                                    <option value="Year">年终奖</option>
+                                    <option value="UseMore">经营所得</option>
+                                    <option value="personWork">个体工商户</option>
+                                    <option value="WorkHad">劳务报酬</option>
+                                </select>
+                                <br><br>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;城市:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <select id="live_City" onchange="liveCity()">
+                                    <option value="None">-请选择城市-</option>
+                                    <option value="VIPCity">一线城市</option>
+                                    <option value="OneCity">二线城市</option>
+                                    <option value="TwoCity">三线城市</option>
+                                    <option value="ThreeCity">四线城市</option>
+                                </select>
+                                <br><br>
+                                <label>&nbsp;&nbsp;个人收入:&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="people_Income">
+                                <label>元</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;医疗保险:&nbsp;&nbsp;</label>
+                                <input type="text" value="2" id="medical_Insurance">
+                                <label>%</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;失业保险:&nbsp;&nbsp;</label>
+                                <input type="text" value="2" id="losework_Insurance">
+                                <label>%</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;养老保险:&nbsp;&nbsp;</label>
+                                <input type="text" value="8" id="pension_Insurance">
+                                <label>%</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;工伤保险:&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="workbad_Insurance">
+                                <label>%</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;生育保险:&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="baby_Insurance">
+                                <label>%</label>
+                                <br><br>
+                                <label>住房公积金:</label>
+                                <input type="text" value="8" id="home_Fund">
+                                <label>%</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;专项扣除:&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="special_Decution">
+                                <label>元</label>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary" id="insurance_Change" onclick="insuranceChange()">计算</button>
+                                <br><br>
+                                <label>&nbsp;&nbsp;扣税收入:&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="actual_Income">
+                                <label>元</label>
+                            </div>
+                        </div>
+                        <!-- 住房公积金计算 -->
+                        <div class="tab-pane" id="tab-three">
+                            <div style="width: 600px; padding-left: 20%; padding-top: 70px;">
+                                <label>月薪收入:</label>
+                                <input type="text" value="0" id="month_Income_Three">
+                                <label>元</label>
+                                <br><br>
+                                <label>个人比例:</label>
+                                <input type="text" value="8" id="people_Propor">
+                                <label>%</label>
+                                <br><br>
+                                <label>公司比例:</label>
+                                <input type="text" value="12" id="company_Propor">
+                                <label>%</label>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary" id="home_Fund_Change" onclick="homeFundChange()">计算</button>
+                                <br><br>
+                                <label>单月缴纳:</label>
+                                <input type="text" value="0" id="month_Outcome">
+                                <label>元</label>
+                                <br><br>
+                                <label>个人缴纳:</label>
+                                <input type="text" value="0" id="month_Outcome_People">
+                                <label>元</label>
+                                <br><br>
+                                <label>公司缴纳:</label>
+                                <input type="text" value="0" id="month_Outcome_Company">
+                                <label>元</label>
+                            </div>
+                        </div>
+                        <!-- 养老保险计算 -->
+                        <div class="tab-pane" id="tab-four">
+                            <div style="width: 600px; padding-left: 20%; padding-top: 70px;">
+                                <label>月薪收入:</label>
+                                <input type="text" value="0" id="month_Income_Four">
+                                <label>元</label>
+                                <br><br>
+                                <label>增长比例:</label>
+                                <input type="text" value="5" id="up_Intrate">
+                                <label>%</label>
+                                <br><br>
+                                <label>个人比例:</label>
+                                <input type="text" value="8" id="people_Intrate">
+                                <label>%</label>
+                                <br><br>
+                                <label>公司比例:</label>
+                                <input type="text" value="20" id="company_Intrate">
+                                <label>%</label>
+                                <br><br>
+                                <label>现在年龄:</label>
+                                <input type="text" value="0" id="now_Age">
+                                <label>岁</label>
+                                <br><br>
+                                <label>退休年龄:</label>
+                                <input type="text" value="60" id="down_Age">
+                                <label>岁</label>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary" id="medical_Insurance_Change" onclick="medicalInsuranceChange()">计算</button>
+                                <br><br>
+                                <label>单月缴纳:</label>
+                                <input type="text" value="0" id="month_Medical_Insurance_Outcome">
+                                <label>元</label>
+                                <br><br>
+                                <label>个人缴纳:</label>
+                                <input type="text" value="0" id="month_Medical_Insurance_Outcome_People">
+                                <label>元</label>
+                                <br><br>
+                                <label>公司缴纳:</label>
+                                <input type="text" value="0" id="month_Medical_Insurance_Outcome_Company">
+                                <label>元</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;退休金:&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="all_Medical_Insurance_Outcome">
+                                <label>元</label>
+                            </div>
+                        </div>
+                        <!-- 活期储蓄计算 -->
+                        <div class="tab-pane" id="tab-five">
+                            <div style="width: 600px; padding-left: 20%; padding-top: 70px;">
+                                <label>存储金额:</label>
+                                <input type="text" value="0" id="income_Money_Five">
+                                <label>元</label>
+                                <br><br>
+                                <label>存入时间:</label>
+                                <select id="income_Date_Five">
+                                    <option value="None">-请选择存储年限-</option>
+                                    <option value="1">1年</option>
+                                    <option value="2">2年</option>
+                                    <option value="3">3年</option>
+                                    <option value="5">5年</option>
+                                </select>
+                                <br><br>
+                                <label>存储利率:</label>
+                                <input type="text" value="0.35" id="income_Intrate">
+                                <label>%</label>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary" id="income_Money_Change" onclick="incomeMoneyChange()">计算</button>
+                                <br><br>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;利息:&nbsp;&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="intrate_Money_Five">
+                                <label>元</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;本息合:&nbsp;</label>
+                                <input type="text" value="0" id="intrate_Money_And_Money_Five">
+                                <label>元</label>
+                            </div>
+                        </div>
+                        <!-- 教育储蓄计算 -->
+                        <div class="tab-pane" id="tab-six">
+                            <div style="width: 600px; padding-left: 20%; padding-top: 70px;">
+                                <label>存储金额:</label>
+                                <input type="text" value="0" id="income_Money_Six">
+                                <label>元</label>
+                                <br><br>
+                                <label>存储时间:</label>
+                                <select id="income_Date_Six">
+                                    <option value="None">-请选择存储时间-</option>
+                                    <option value="OneYear">1年</option>
+                                    <option value="TwoYear">2年</option>
+                                    <option value="ThreeYear">3年</option>
+                                    <option value="FourYear">5年</option>
+                                </select>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary" id="study_Income_Money_Change" onclick="studyIncomeMoneyChange()">计算</button>
+                                <br><br>
+                                <label>单月利息:</label>
+                                <input type="text" value="0" id="month_Intrate_Money_Six">
+                                <label>元</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;利息:&nbsp;&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="intrate_Money_Six">
+                                <label>元</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;本息合:&nbsp;</label>
+                                <input type="text" value="0" id="intrate_Money_And_Money_Six">
+                                <label>元</label>
+                                <br><br>
+                                <small>教育储蓄只能单月存储，并且存储金额位于0到1600之间，利率为2.5%，且无任何税收。</small>
+                            </div>
+                        </div>
+                        <!-- 个人贷款计算 -->
+                        <div class="tab-pane" id="tab-seven">
+                            <div style="width: 600px; padding-left: 20%; padding-top: 70px;">
+                                <label>贷款金额:</label>
+                                <input type="text" value="0" id="loan_Money">
+                                <label>元</label>
+                                <br><br>
+                                <label>归还年限:</label>
+                                <input type="text" value="0" id="return_Date">
+                                <label>年</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;利率:&nbsp;&nbsp;&nbsp;</label>
+                                <input type="text" value="4.9" id="intrate_Seven">
+                                <label>%</label>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary" id="loan_Money_Change" onclick="loanMoneyChange()">计算</button>
+                                <br><br>
+                                <label>每月归还:</label>
+                                <input type="text" value="0" id="month_Return">
+                                <label>元</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;利息:&nbsp;&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="intrate_Money_Seven">
+                                <label>元</label>
+                                <br><br>
+                                <label>总本息合:</label>
+                                <input type="text" value="0" id="intrate_Money_And_Money_Seven">
+                                <label>元</label>
+                                <br><br>
+                                <small>此计算方法为等额本息贷款！</small>
+                            </div>
+                        </div>
+                        <!-- 债务收益计算 -->
+                        <div class="tab-pane" id="tab-eight">
+                            <div style="width: 600px; padding-left: 20%; padding-top: 70px;">
+                                <label>购买金额:</label>
+                                <input type="text" value="0" id="buy_Money">
+                                <label>元</label>
+                                <br><br>
+                                <label>购买期限:</label>
+                                <select id="buy_Date">
+                                    <option value="None">-请选择购买年限-</option>
+                                    <option value="OneYear">1年</option>
+                                    <option value="TwoYear">2年</option>
+                                    <option value="ThreeYear">3年</option>
+                                    <option value="FiveYear">5年</option>
+                                </select>
+                                <br><br>
+                                <label>&nbsp;&nbsp;年利率:&nbsp;</label>
+                                <input type="text" value="3.5" id="year_Intrate">
+                                <label>%</label>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary" id="debt_Change" onclick="debtChange()">计算</button>
+                                <br><br>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;利息:&nbsp;&nbsp;&nbsp;</label>
+                                <input type="text" value="0" id="intrate_Money_Eight">
+                                <label>元</label>
+                                <br><br>
+                                <label>&nbsp;&nbsp;本息合:&nbsp;</label>
+                                <input type="text" value="0" id="intrate_Money_And_Money_Eight">
+                                <label>元</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--工具Tab结束-->
+                </div>
+                <!--小工具结束-->
             </div>
         </div>
-    </div>
 
-    <!-- 关于 -->
+    </div>
+    <!--应用栏结束-->
+
+    <!--特性-->
+    <hr class="feature-divider">
+
+    <!--综述-->
+    <div class="row" id="summary-container" style="margin: 0 auto; padding-top: 30px;">
+        <div class="col-md-4">
+            <img class="img-circle" src="images/44.jpg" alt="chrome">
+
+            <h2>新规后P2P平台集体“傍”银行</h2>
+
+            <p>7月18日央行等十部委联合发布《关于促进互联网金融健康发展的指导意见》要求P2P平台资金第三方存管之后，10天的时间里已有多家P2P平台宣布与银行达成存管合作，集体“傍”银行。</p>
+
+            <p><a class="btn btn-default" href="http://finance.people.com.cn/money/n/2015/0731/c218900-27389725.html" role="button">点我了解更多</a></p>
+            <!-- http://finance.people.com.cn/money/n/2015/0731/c218900-27389725.html -->
+        </div>
+        <div class="col-md-4">
+            <img class="img-circle" src="images/22.jpg" alt="firefox">
+
+            <h2>银行理财收益率“风光不再”降至4.88%</h2>
+
+            <p>入夏以来A股跌宕起伏，当征战股市的投资者准备购买理财产品时，却发现银行理财收益率大降。上周北京地区发行的人民币非结构性银行理财的平均收益率已降至4.88%，平均投资期限则长达131天。</p>
+
+            <p><a class="btn btn-default" href="http://finance.people.com.cn/money/n/2015/0731/c218900-27389800.html" role="button">点我了解更多</a></p>
+            <!-- http://finance.people.com.cn/money/n/2015/0731/c218900-27389800.html -->
+        </div>
+        <div class="col-md-4">
+            <img class="img-circle" src="images/77.png" alt="safari">
+
+            <h2>大额存单发行机构扩至102家</h2>
+
+            <p>未来，市民要购买大额存单，将会有更多的银行机构可以选择。昨日，北京晨报记者从中国外汇交易中心获悉，发行大额存单金融机构将从此前的9家扩大至102家。</p>
+            <br>
+            <p><a class="btn btn-default" href="http://finance.people.com.cn/bank/n/2015/0731/c202331-27389640.html" role="button">点我了解更多</a></p>
+            <!-- http://finance.people.com.cn/bank/n/2015/0731/c202331-27389640.html -->
+        </div>
+    </div>
+    <!--综述结束-->
+
+    <!--特性-->
+    <hr class="feature-divider">
+
+    <!--footer-->
+    <div>
+        <footer>
+            <p class="text-center">&copy; 2019 西北工业大学明德学院</p>
+            <p class="text-center"> 20121502 151219 李云龙 </p>
+        </footer>
+    </div>
+    <!--footer结束-->
+
+    <!--关于-->
     <div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -271,46 +629,10 @@
             </div>
         </div>
     </div>
-
-    <!-- 特性 -->
-    <hr class="feature-divider">
-
-    <!-- 综述 -->
-    <div class="row" id="summary-container">
-        <div class="col-md-4">
-            <h2>综述1</h2>
-            <!--<img class="img-circle" src="images/chrome-logo-small.jpg" alt="chrome">-->
-            <!--<h2>Chrome</h2>-->
-            <!--<p>Google Chrome，又称Google浏览器，是一个由Google（谷歌）公司开发的网页浏览器。</p>-->
-            <!--<p><a class="btn btn-default" href="#" role="button">点我下载</a></p>-->
-        </div>
-        <div class="col-md-4">
-            <h2>综述2</h2>
-            <!--<img class="img-circle" src="images/firefox-logo-small.jpg" alt="firefox">-->
-            <!--<h2>Firefox</h2>-->
-            <!--<p>Mozilla Firefox，中文名通常称为“火狐”或“火狐浏览器”，是一个开源网页浏览器。</p>-->
-            <!--<p><a class="btn btn-default" href="#" role="button">点我下载</a></p>-->
-        </div>
-        <div class="col-md-4">
-            <h2>综述3</h2>
-            <!--<img class="img-circle" src="images/safari-logo-small.jpg" alt="safari">-->
-            <!--<h2>Safari</h2>-->
-            <!--<p>Safari，是苹果计算机的最新操作系统Mac OS X中的浏览器。</p>-->
-            <!--<p><a class="btn btn-default" href="#" role="button">点我下载</a></p>-->
-        </div>
-    </div>
-
-    <!-- 特性 -->
-    <hr class="feature-divider">
-
-    <!--footer-->
-    <footer>
-        <p class="text-center">&copy; 2019 西北工业大学明德学院</p>
-        <p class="text-center"> 20121502 151219 李云龙 </p>
-    </footer>
+    <!--关于结束-->
 
 </div>
-
+<!--主要内容结束-->
 
 <script>
     $(document).ready(function(){
@@ -328,7 +650,6 @@
         });
     });
 </script>
-
 
 </body>
 

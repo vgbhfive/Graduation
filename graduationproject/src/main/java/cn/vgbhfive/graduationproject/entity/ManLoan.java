@@ -1,5 +1,6 @@
 package cn.vgbhfive.graduationproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "man_loan")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class ManLoan {
 
     @Id
@@ -27,12 +29,12 @@ public class ManLoan {
 
     private String type; //类型
 
-    private Date date; //时间
+    private Date datetimes; //时间
 
     private Integer deadline; //期限(单位：月)
 
     private Float intrate; //利率
 
-    private String content; //内容
+    private String contents; //内容
 
 }

@@ -5,6 +5,10 @@ import cn.vgbhfive.graduationproject.model.ReturnResult;
 import cn.vgbhfive.graduationproject.repository.LoanRepository;
 import org.hibernate.loader.plan.exec.process.spi.ReturnReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -34,7 +38,7 @@ public class LoanService {
         l.setType(loan.get("type"));
         l.setIntrate(Float.parseFloat(loan.get("intrate")));
         l.setOdds(Float.parseFloat(loan.get("odds")));
-        l.setContent(loan.get("content"));
+        l.setContents(loan.get("content"));
 
         Loan save = loanRepository.save(l);
 
@@ -76,12 +80,23 @@ public class LoanService {
         l.setType(loan.get("type"));
         l.setOdds(Float.parseFloat(loan.get("odds")));
         l.setIntrate(Float.parseFloat(loan.get("intrate")));
-        l.setContent(loan.get("content"));
+        l.setContents(loan.get("content"));
 
         loanRepository.delete(sel);
         Loan save = loanRepository.save(l);
 
         return ReturnResult.ok(save);
+    }
+
+    /**
+     * 贷款信息分页查询
+     * @param page
+     * @param size
+     * @return 贷款信息集合
+     */
+    public Page<Loan> findAllNoCriteria(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "loanId");
+        return loanRepository.findAll(pageable);
     }
 
 }

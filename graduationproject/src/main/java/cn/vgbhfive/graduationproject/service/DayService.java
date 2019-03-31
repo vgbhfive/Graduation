@@ -44,8 +44,8 @@ public class DayService {
         day.setMoney(Integer.parseInt(dayInOut.get("money")));
         day.setIncome(Boolean.parseBoolean(dayInOut.get("income")));
         day.setHowUse(dayInOut.get("use"));
-        day.setDate(new Date());
-        day.setContent(dayInOut.get("content"));
+        day.setDatetimes(new Date());
+        day.setContents(dayInOut.get("content"));
 
         DayInOut one = dayRepository.save(day);
         return ReturnResult.ok(one);
@@ -68,8 +68,8 @@ public class DayService {
         save.setMoney(Integer.parseInt(dayInOut.get("money")));
         save.setIncome(Boolean.parseBoolean(dayInOut.get("income")));
         save.setHowUse(dayInOut.get("use"));
-        save.setDate(new Date());
-        save.setContent(dayInOut.get("content"));
+        save.setDatetimes(new Date());
+        save.setContents(dayInOut.get("content"));
 
         dayRepository.delete(day); //删除原信息
         DayInOut ret = dayRepository.save(save); //添加修改后的信息

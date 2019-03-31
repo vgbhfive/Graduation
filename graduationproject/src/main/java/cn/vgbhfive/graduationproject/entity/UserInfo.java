@@ -1,5 +1,6 @@
 package cn.vgbhfive.graduationproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "user_info")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class UserInfo {
 
     @Id

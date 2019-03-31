@@ -49,11 +49,11 @@ public class ManAssetsService {
         ManAsset man = new ManAsset();
         man.setUserId(Long.valueOf(manAsset.get("userId")));
         man.setMoney(Integer.parseInt(manAsset.get("money")));
-        man.setDate(new Date());
+        man.setDatetimes(new Date());
         man.setCycle(Integer.parseInt(manAsset.get("cycle")));
         man.setProperty(manAsset.get("property"));
         man.setSource(manAsset.get("source"));
-        man.setContent(manAsset.get("content"));
+        man.setContents(manAsset.get("content"));
 
         ManAsset save = manAssetsRepository.save(man);
         return ReturnResult.ok(save);
@@ -74,11 +74,11 @@ public class ManAssetsService {
         man.setId(id);
         man.setUserId(Long.valueOf(manAsset.get("userId")));
         man.setMoney(Integer.parseInt(manAsset.get("money")));
-        man.setDate(new Date());
+        man.setDatetimes(new Date());
         man.setCycle(Integer.parseInt(manAsset.get("cycle")));
         man.setProperty(manAsset.get("property"));
         man.setSource(manAsset.get("source"));
-        man.setContent(manAsset.get("content"));
+        man.setContents(manAsset.get("content"));
 
         manAssetsRepository.deleteById(id);
         ManAsset save = manAssetsRepository.save(man);

@@ -1,8 +1,10 @@
 package cn.vgbhfive.graduationproject.controller;
 
+import cn.vgbhfive.graduationproject.entity.Financial;
 import cn.vgbhfive.graduationproject.model.ReturnResult;
 import cn.vgbhfive.graduationproject.service.FinanicalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +43,9 @@ public class FinancialController {
         return finanicalService.update(financial);
     }
 
+    @GetMapping(value = "/allnocriteria")
+    public Page<Financial> findAllNoCritreia(Integer page, Integer size) {
+        return finanicalService.findAllNoCritreia(page, size);
+    }
 
 }

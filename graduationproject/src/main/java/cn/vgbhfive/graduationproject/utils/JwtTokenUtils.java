@@ -47,7 +47,6 @@ public class JwtTokenUtils {
                 .compact();
     }
 
-
     /**
      * 从token中获取用户名
      * @param token

@@ -30,5 +30,20 @@ public class URLController {
         return "view/login";
     }
 
+    @GetMapping(value = "/back")
+    public String backURL() {
+        return "view/back";
+    }
+
+    @GetMapping(value = "/admin")
+    public String adminURL() {
+        return "view/admin";
+    }
+
+    @GetMapping(value = "/demo")
+    public String demoURL() {
+        return "view/demo";
+    }
+
 
 }

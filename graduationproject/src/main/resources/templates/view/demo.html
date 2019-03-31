@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Test</title>
+
+    <script type="text/javascript" th:src="@{js/jquery-1.11.1.js}"></script>
+    <script type="text/javascript" th:src="@{js/bootstrap.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}" />
+
+</head>
+<body onload="test()">
+
+<table border="1 auto" width="60%" align="center">
+    <tr>
+        <th>Id</th>
+        <th>Money</th>
+        <th>ReturnDate</th>
+        <th>Type</th>
+        <th>Intrate</th>
+        <th>Odds</th>
+        <th>Contents</th>
+    </tr>
+    <tr th:each="loan : ${content}">
+        <th th:text="${loan.loanId}">1</th>
+        <th th:text="${loan.money}">1</th>
+        <th th:text="${loan.returnDate}">1</th>
+        <th th:text="${loan.type}">1</th>
+        <th th:text="${loan.intrate}">1</th>
+        <th th:text="${loan.odds}">1</th>
+        <th th:text="${loan.contents}">1</th>
+    </tr>
+</table>
+
+</body>
+
+<script th:inline="javascript">
+
+    function requestData(url, method, data, cb) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(method || 'get', url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                var  result = xhr.response;
+                try {
+                    result = JSON.parse(result)
+                } catch (e) {
+                    console.warn('解析 JSON 失败', e);
+                }
+                cb && cb({
+                    status: xhr.status,
+                    data: result
+                });
+            }
+        }
+        if (typeof(data) === 'object') {
+            data = JSON.stringify(data);
+        }
+        xhr.send(data);
+    }
+
+    test = function () {
+        requestData('/loan/one/1', 'get', {
+        }, function (res) {
+            if (res.status === 200) {
+                // statusView.innerText = '请求成功: ' + res.status
+                // resultView.innerText = JSON.stringify(res.data, '', '    ')
+                console.log('请求成功: ' + res.status);
+                console.log(JSON.stringify(res.data, '', '    '));
+                var content = [[${res.data}]];
+            } else {
+                // statusView.innerText = '请求失败: ' + res.status
+                console.log('请求失败: ' + res.status);
+            }
+        })
+    }
+</script>
+
+
+</html>

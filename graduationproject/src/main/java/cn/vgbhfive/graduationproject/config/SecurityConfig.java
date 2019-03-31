@@ -52,7 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/tasks/**").authenticated() //测试Spring Security安全机制
                 .antMatchers("/admin").hasAnyAuthority("ADMIN") //admin请求需要ADMIN权限
-                .antMatchers(HttpMethod.DELETE, "/tasks/**").hasAuthority("ADMIN") //删除操作需要ADMIN权限
+                //.antMatchers(HttpMethod.DELETE, "/tasks/**").hasAuthority("ADMIN") //删除操作需要ADMIN权限
+                .antMatchers("/static").permitAll() //静态数据，不需要权限
+                .antMatchers("/financial").permitAll() //获取理财数据，不需要权限
+                .antMatchers("/loan").permitAll() //获取贷款数据，不需要权限
                 .antMatchers("/home").permitAll() //主页面，不需要权限
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))

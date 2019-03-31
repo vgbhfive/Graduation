@@ -3,11 +3,17 @@ package cn.vgbhfive.graduationproject.service;
 import cn.vgbhfive.graduationproject.entity.Financial;
 import cn.vgbhfive.graduationproject.model.ReturnResult;
 import cn.vgbhfive.graduationproject.repository.FinanicalRepository;
+import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.jnlp.IntegrationService;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +60,7 @@ public class FinanicalService {
         f.setDeadline(Integer.parseInt(financial.get("deadline")));
         f.setIntrates(Float.parseFloat(financial.get("intrate")));
         f.setExpectReturn(f.getIntrates() * f.getMoney());
-        f.setContent(financial.get("content"));
+        f.setContents(financial.get("content"));
 
         Financial save = finanicalRepository.save(f);
         return ReturnResult.ok(save);
@@ -78,11 +84,22 @@ public class FinanicalService {
         f.setDeadline(Integer.parseInt(financial.get("deadline")));
         f.setIntrates(Float.parseFloat(financial.get("intrate")));
         f.setExpectReturn(f.getIntrates() * f.getMoney());
-        f.setContent(financial.get("content"));
+        f.setContents(financial.get("content"));
 
         finanicalRepository.deleteById(id);
         Financial save = finanicalRepository.save(f); //插入
         return ReturnResult.ok(save);
+    }
+
+    /**
+     * 分页查询理财信息
+     * @param page
+     * @param size
+     * @return 理财信息集合
+     */
+    public Page<Financial> findAllNoCritreia(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "id");
+        return finanicalRepository.findAll(pageable);
     }
 
 }

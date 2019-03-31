@@ -1,5 +1,6 @@
 package cn.vgbhfive.graduationproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "day_income_expenditure")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class DayInOut {
 
     @Id
@@ -24,12 +26,12 @@ public class DayInOut {
 
     private Integer money; //金额
 
-    private Date date; //日期
+    private Date datetimes; //日期
 
     private String howUse; //用途
 
-    private Boolean income; //收入还是支出(True/False)
+    private Boolean income; //收入还是支出(True(1)/False(0))
 
-    private String content; //内容
+    private String contents; //内容
 
 }

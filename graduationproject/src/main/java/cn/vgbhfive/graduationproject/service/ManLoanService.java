@@ -50,10 +50,10 @@ public class ManLoanService {
         m.setUserId(Long.parseLong(manLoan.get("userId")));
         m.setMoney(Integer.parseInt(manLoan.get("money")));
         m.setType(manLoan.get("type"));
-        m.setDate(new Date());
+        m.setDatetimes(new Date());
         m.setDeadline(Integer.parseInt(manLoan.get("deadline")));
         m.setIntrate(Float.parseFloat(manLoan.get("intrate")));
-        m.setContent(manLoan.get("content"));
+        m.setContents(manLoan.get("content"));
 
         ManLoan save = manLoanRepository.save(m);
         return ReturnResult.ok(save);
