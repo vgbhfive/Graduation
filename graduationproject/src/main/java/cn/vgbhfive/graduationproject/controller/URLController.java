@@ -45,5 +45,9 @@ public class URLController {
         return "view/demo";
     }
 
+    @GetMapping(value = "/userinfo")
+    public String userinfoURL() {
+        return "view/userinfo";
+    }
 
 }

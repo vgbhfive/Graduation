@@ -3,6 +3,7 @@ package cn.vgbhfive.graduationproject.service;
 import cn.vgbhfive.graduationproject.entity.DayInOut;
 import cn.vgbhfive.graduationproject.model.ReturnResult;
 import cn.vgbhfive.graduationproject.repository.DayRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.ReturnedType;
 import org.springframework.stereotype.Service;
@@ -57,13 +58,14 @@ public class DayService {
      * @return 日常收入或支出信息
      */
     public ReturnResult update(Map<String, String> dayInOut) {
-        DayInOut day = dayRepository.getOne(Long.valueOf(dayInOut.get("dayId")));
+        Long id = Long.valueOf(dayInOut.get("dayId"));
+        DayInOut day = dayRepository.getOne(id);
         if (day == null) {
-            ReturnResult.error(403, "No This DayInOut!");
+            return ReturnResult.error(403, "No This DayInOut!");
         }
 
         DayInOut save = new DayInOut();
-        save.setDayId(day.getDayId());
+        save.setDayId(id);
         save.setUserId(Long.valueOf(dayInOut.get("userId")));
         save.setMoney(Integer.parseInt(dayInOut.get("money")));
         save.setIncome(Boolean.parseBoolean(dayInOut.get("income")));

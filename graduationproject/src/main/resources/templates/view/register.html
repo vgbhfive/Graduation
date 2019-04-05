@@ -6,6 +6,8 @@
 
     <script type="text/javascript" th:src="@{js/jquery-1.11.1.js}"></script>
     <script type="text/javascript" th:src="@{js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{js/login.js}"></script>
+    <script type="text/javascript" th:src="@{js/top.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}" />  
 
 </head>
@@ -15,13 +17,13 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="menu-nav">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">个人理财系统</a>
+            <a class="navbar-brand" href="#" onclick="Home()">个人理财系统</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#summary-container">综述</a></li>
+                <li><a href="#summary-container" onclick="Home()">综述</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">功能<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="Home()">功能<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#feature-tab" data-tab="tab-day">日常收支</a></li>
                         <li><a href="#feature-tab" data-tab="tab-finance">个人理财</a></li>
@@ -30,16 +32,16 @@
                         <li><a href="#feature-tab" data-tab="tab-utils">小工具</a></li>
                     </ul>
                 </li>
-                <li><a href="#" data-toggle="modal" data-target="#about-modal">About</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#about-modal" onclick="Home()">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">
+                    <a href="#" onclick="User_Info()">
                         <i class="glyphicon glyphicon-user"></i> User
                     </a>
                 </li>
-                <li><a href="#" id="login">Log in</a></li>
-                <li><a href="#" id="signout">Sign out</a></li>
+                <li><a href="#" id="login" onclick="Log_In()">Log in</a></li>
+                <li><a href="#" id="signout" onclick="Sign_Out()">Sign out</a></li>
             </ul>
         </div>
     </div>
@@ -51,8 +53,8 @@
     <form>
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="username" class="form-control" id="username" placeholder="Enter Username" style="width: 400px;">
-            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            <input type="username" class="form-control" id="username" placeholder="Enter Username" onblur="repeat()" style="width: 400px;">
+            <small style="display: none;" class="text text-danger" id="usernameError" >The Username Repeated!</small>
         </div>
         <div class="form-group">
             <label for="password1">Password</label>
@@ -60,10 +62,11 @@
         </div>
         <div class="form-group">
             <label for="password1">Repeat Password</label>
-            <input type="password" class="form-control" id="password2" placeholder="Password" style="width: 400px;">
+            <input type="password" class="form-control" id="password2" placeholder="Repeat Password" style="width: 400px;">
+            <small style="display: none;" class="text text-danger" id="showError">密码不一致！</small>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary" id="logon">Log on</button>
+        <button type="button" class="btn btn-primary" id="logon" onclick="Log_On()">Log on</button>
     </form>
 </div>
 <!--主体结束-->

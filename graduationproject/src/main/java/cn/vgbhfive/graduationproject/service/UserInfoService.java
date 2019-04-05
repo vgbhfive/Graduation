@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -73,16 +74,6 @@ public class UserInfoService {
         EmailUtils.sendSimpleMail(u.getEmail(), "Change User Information!",
                 "您修改了您的个人信息，若不是您自己修改,请及时修改您的密码，以防他人盗用！");
         return ReturnResult.ok(save);
-    }
-
-    /**
-     * 判断是否重复注册用户名
-     * @param userId
-     * @return 是否重复注册
-     */
-    public ReturnResult repeat(Long userId) {
-        Boolean repeat = userInfoRepository.existsById(userId);
-        return ReturnResult.ok(repeat);
     }
 
 }

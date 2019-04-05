@@ -68,7 +68,7 @@ public class ManAssetsService {
         Long id = Long.parseLong(manAsset.get("id"));
 
         if (manAssetsRepository.existsById(id)) {
-            ReturnResult.error(403, "No This ManAsset!");
+            return ReturnResult.error(403, "No This ManAsset!");
         }
         ManAsset man = new ManAsset();
         man.setId(id);

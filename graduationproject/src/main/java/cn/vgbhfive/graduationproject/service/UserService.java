@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +44,17 @@ public class UserService {
 
         logger.info(save.toString());
         return ReturnResult.ok(save);
+    }
+
+    /**
+     * 查询是否重复注册用户名
+     * @param username
+     * @return boolean
+     */
+    public ReturnResult repeat(String username) {
+        List<User> users = userRepository.findByUsernameIs(username);
+        //logger.info(users.toString());
+        return ReturnResult.ok(users.size() == 1 ? true : false);
     }
 
 }

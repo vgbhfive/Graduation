@@ -1,4 +1,4 @@
-package cn.vgbhfive.graduationproject.controller;
+package cn.vgbhfive.graduationproject.test;
 
 import org.springframework.web.bind.annotation.*;
 

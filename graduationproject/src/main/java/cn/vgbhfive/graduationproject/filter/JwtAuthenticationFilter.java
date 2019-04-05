@@ -35,7 +35,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
-    private ThreadLocal<Integer> rememberMe = new ThreadLocal<>();
+    private ThreadLocal<Integer> rememberMe  = new ThreadLocal<>();
     private AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -47,6 +47,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             LoginUser loginUser = new ObjectMapper().readValue(request.getInputStream(), LoginUser.class);
+            rememberMe.set(loginUser.getRememberMe());
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     loginUser.getUsername(), loginUser.getPassword(), new ArrayList<>()));
         } catch (IOException e) {
@@ -59,7 +60,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // 查看源代码会发现调用getPrincipal()方法会返回一个实现了`UserDetails`接口的对象, 所以就是JwtUser
         JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
-        logger.info("jwtUser:" + jwtUser.toString());
+        logger.info("jwtUser : " + jwtUser.toString());
+        String userId = jwtUser.toString().substring(11, jwtUser.toString().indexOf(','));
+        //logger.info("userId : " + userId);
         boolean isRemember = rememberMe.get() == 1;
 
         String role = "";
@@ -71,6 +74,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = JwtTokenUtils.createToken(jwtUser.getUsername(), role, isRemember);
         // 返回创建成功的token, 这里创建的token只是单纯的token, 按照jwt的规定，最后请求的格式应该是 `Bearer token`
         response.setHeader("token", JwtTokenUtils.TOKEN_PREFIX + token);
+        response.setHeader("userId", userId);
     }
 
     @Override

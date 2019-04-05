@@ -1,19 +1,17 @@
-/*
+/**
  * @Auther: Vgbh
+ * Home.html
  */
 
 element = function (str) {
-	//console.log(str);
 	return document.getElementById(str);
 }
 
 elementVal = function (str) {
-	//console.log(str);
 	return document.getElementById(str).value;
 }
 
 elementSel = function (str) {
-	//console.log(str);
 	return document.getElementById(str).selectedIndex;
 }
 
@@ -27,29 +25,21 @@ changeMoney = function () {
 	var currency2 = 0;
 	switch(index) {
 		case 0:
-			alert("请选择持有币种！"); 
-			break;
+			alert("请选择持有币种！");break;
 		case 1:
-			currency = haveMoney; 
-			break;
+			currency = haveMoney;break;
 		case 2:
-			currency = haveMoney * 6.71; 
-			break;
+			currency = haveMoney * 6.71;break;
 		case 3:
-			currency = haveMoney * 8.84; 
-			break;
+			currency = haveMoney * 8.84;break;
 		case 4:
-			currency = haveMoney * 7.59; 
-			break;
+			currency = haveMoney * 7.59;break;
 		case 5:
-			currency = haveMoney * 0.061; 
-			break;
+			currency = haveMoney * 0.061;break;
 		case 6:
-			currency = haveMoney * 0.85; 
-			break;
+			currency = haveMoney * 0.85;break;
 		case 7:
-			currency = haveMoney * 6.67; 
-			break;
+			currency = haveMoney * 6.67;break;
 	}
 	//console.log(currency);
 	switch(index2) {
@@ -316,24 +306,19 @@ incomeMoneyChange = function () {
 	var intrateMoneyAndMoney = element("intrate_Money_And_Money_Five");
 	switch (parseInt(incomeDate)) {
 		case 0:
-			alert("-请选择存储年限！-");
-			break;
+			alert("-请选择存储年限！-");break;
 		case 1:
 			intrateMoney.value = parseInt(incomeMoney) * parseFloat(incomeIntrate) * 4 / 100;
-			intrateMoneyAndMoney.value = parseInt(incomeMoney) + parseInt(intrateMoney.value);
-			break;
+			intrateMoneyAndMoney.value = parseInt(incomeMoney) + parseInt(intrateMoney.value);break;
 		case 2:
 			intrateMoney.value = parseInt(incomeMoney) * parseFloat(incomeIntrate) * 8 / 100;
-			intrateMoneyAndMoney.value = parseInt(incomeMoney) + parseInt(intrateMoney.value);
-			break;
+			intrateMoneyAndMoney.value = parseInt(incomeMoney) + parseInt(intrateMoney.value);break;
 		case 3:
 			intrateMoney.value = parseInt(incomeMoney) * parseFloat(incomeIntrate) * 12 / 100;
-			intrateMoneyAndMoney.value = parseInt(incomeMoney) + parseInt(intrateMoney.value);
-			break;
+			intrateMoneyAndMoney.value = parseInt(incomeMoney) + parseInt(intrateMoney.value);break;
 		case 4:
 			intrateMoney.value = parseInt(incomeMoney) * parseFloat(incomeIntrate) * 20 / 100;
-			intrateMoneyAndMoney.value = parseInt(incomeMoney) + parseInt(intrateMoney.value);
-			break;
+			intrateMoneyAndMoney.value = parseInt(incomeMoney) + parseInt(intrateMoney.value);break;
 	}
 }
 
@@ -349,28 +334,24 @@ studyIncomeMoneyChange = function () {
 	monthIntrateMoney.value = parseInt(incomeMoney) * 0.025;
 	switch (parseInt(incomeDate)) {
 		case 0:
-			alert("-请选择存储年限！-");
-			break;
+			alert("-请选择存储年限！-");break;
 		case 1:
 			intrateMoney.value = parseInt(incomeMoney) * 0.025 * 12;
-			intrateMoneyAndMoney.value = parseInt(incomeMoney) * 12 + parseInt(intrateMoney.value);
-			break;
+			intrateMoneyAndMoney.value = parseInt(incomeMoney) * 12 + parseInt(intrateMoney.value);break;
 		case 2:
 			intrateMoney.value = parseInt(incomeMoney) * 0.025 * 24;
-			intrateMoneyAndMoney.value = parseInt(incomeMoney) * 12 + parseInt(intrateMoney.value);
-			break;
+			intrateMoneyAndMoney.value = parseInt(incomeMoney) * 12 + parseInt(intrateMoney.value);break;
 		case 3:
 			intrateMoney.value = parseInt(incomeMoney) * 0.025 * 36;
-			intrateMoneyAndMoney.value = parseInt(incomeMoney) * 12 + parseInt(intrateMoney.value);
-			break;
+			intrateMoneyAndMoney.value = parseInt(incomeMoney) * 12 + parseInt(intrateMoney.value);break;
 		case 4:
 			intrateMoney.value = parseInt(incomeMoney) * 0.025 * 60;
-			intrateMoneyAndMoney.value = parseInt(incomeMoney) * 12 + parseInt(intrateMoney.value);
-			break;
+			intrateMoneyAndMoney.value = parseInt(incomeMoney) * 12 + parseInt(intrateMoney.value);break;
 	}
 }
 
 //id: loan_Money_Change
+//TODO: Error
 loanMoneyChange = function () {
 	var loanMoney = elementVal("loan_Money");
 	var returnDate = elementVal("return_Date");
@@ -408,26 +389,44 @@ debtChange = function () {
 	var date = 0;
 	switch (buyDate) {
 		case 0:
-			alert("请选择购买年限！");
-			break;
+			alert("请选择购买年限！");break;
 		case 1:
 			date = 1;
-			intrateMoney.value = money * date * intrate / 100;
-			break;
+			intrateMoney.value = money * date * intrate / 100;break;
 		case 2:
 			date = 2;
-			intrateMoney.value = money * date * intrate / 100;
-			break;
+			intrateMoney.value = money * date * intrate / 100;break;
 		case 3:
 			date = 3;
-			intrateMoney.value = money * date * intrate / 100;
-			break;
+			intrateMoney.value = money * date * intrate / 100;break;
 		case 4:
 			date = 5;
-			intrateMoney.value = money * date * intrate / 100;
-			break;
+			intrateMoney.value = money * date * intrate / 100;break;
 	}
 	intrateMoneyAndMoney.value = money + parseInt(intrateMoney.value);
+}
+
+function requestData(url, method, data, cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method || 'get', url, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            var  result = xhr.response;
+            try {
+                result = JSON.parse(result)
+            } catch (e) {
+                console.warn('解析 JSON 失败', e);
+            }
+            cb && cb({
+                status: xhr.status,
+                data: result
+            });
+        }
+    }
+    if (typeof(data) === 'object') {
+        data = JSON.stringify(data);
+    }
+    xhr.send(data);
 }
 
 //id: day_Input_Output
@@ -435,11 +434,101 @@ dayInputOutput = function () {
 	
 }
 
-//id: day_Reset
-dayReset = function () {
-	
+function financialInnerHtml(i, x) {
+    switch (parseInt(i)) {
+        case 0:
+            var one = document.getElementById("financial_One");
+            one.innerHTML = x;break;
+        case 1:
+            var two = document.getElementById("financial_Two");
+            two.innerHTML = x;break;
+        case 2:
+            var three = document.getElementById("financial_Three");
+            three.innerHTML = x;break;
+        case 3:
+            var four = document.getElementById("financial_Four");
+            four.innerHTML = x;break;
+        case 4:
+            var five = document.getElementById("financial_Five");
+            five.innerHTML = x;break;
+        case 5:
+            var six = document.getElementById("financial_Six");
+            six.innerHTML = x;break;
+        case 6:
+            var seven = document.getElementById("financial_Seven");
+            seven.innerHTML = x;break;
+        default:
+            console.log("error!");break;
+    }
 }
 
-testData = function () {
+function loanInnerHtml(i, x) {
+    switch (parseInt(i)) {
+        case 0:
+            var one = document.getElementById("loan_One");
+            one.innerHTML = x;break;
+        case 1:
+            var two = document.getElementById("loan_Two");
+            two.innerHTML = x;break;
+        case 2:
+            var three = document.getElementById("loan_Three");
+            three.innerHTML = x;break;
+        case 3:
+            var four = document.getElementById("loan_Four");
+            four.innerHTML = x;break;
+        case 4:
+            var five = document.getElementById("loan_Five");
+            five.innerHTML = x;break;
+        case 5:
+            var six = document.getElementById("loan_Six");
+            six.innerHTML = x;break;
+        case 6:
+            var seven = document.getElementById("loan_Seven");
+            seven.innerHTML = x;break;
+        default:
+            console.log("error!");break;
+    }
+}
+
+load = function () {
+    requestData('/financial/all', 'get', {}, function (res) {
+        if (res.status === 200) {
+            var x = "";
+            for (var i in res.data.data) {
+                x += "<tr>";
+                for (var j in res.data.data[i]) {
+                    x += "<td>" + res.data.data[i][j] + "</td>";
+                }
+                x += "<td style='padding-right: 40px;'>" + "<button type='button' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
+                x += "</tr>";
+                financialInnerHtml(i, x);
+                x = "";
+            }
+        } else {
+            alert('请求失败: ' + res.status);
+            //console.log('请求失败: ' + res.status);
+        }
+    });
+    requestData('/loan/all', 'get', {}, function (res) {
+        if (res.status === 200) {
+            //console.log(JSON.stringify(res.data.data, "", "   "));
+            var x = "";
+            for (var i in res.data.data) {
+                x += "<tr>";
+                for (var j in res.data.data[i]) {
+                    x += "<td>" + res.data.data[i][j] + "</td>";
+                }
+                x += "<td style='padding-right: 40px;'>" + "<button type='button' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
+                x += "</tr>";
+                loanInnerHtml(i, x);
+                x = "";
+            }
+        } else {
+            alert('请求失败: ' + res.status);
+            //console.log('请求失败: ' + res.status);
+        }
+    });
 
 }
+
+

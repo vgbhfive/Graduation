@@ -8,6 +8,7 @@
     <script type="text/javascript" th:src="@{js/jquery-1.11.1.js}"></script>
     <script type="text/javascript" th:src="@{js/bootstrap.js}"></script>
     <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" th:src="@{js/top.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}" />  
 
     <!--[if lt IE 9]
@@ -87,7 +88,7 @@
 
 </head>
 
-<body onload="testData()">
+<body onload="load()">
 
 <!--顶部导航-->
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="menu-nav">
@@ -112,12 +113,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">
+                    <a href="#" onclick="User_Info()">
                         <i class="glyphicon glyphicon-user"></i> User
                     </a>
                 </li>
-                <li><a href="#" id="login">Log in</a></li>
-                <li><a href="#" id="signout">Sign out</a></li>
+                <li><a href="#" id="login" onclick="Log_In()">Log in</a></li>
+                <li><a href="#" id="signout" onclick="Sign_Out()">Sign out</a></li>
             </ul>
         </div>
     </div>
@@ -202,7 +203,7 @@
                         </div>
                         <div class="form-group" style="padding-left: 150px; padding-right: 200px;">
                             <button type="button" class="btn btn-primary" id="day_Input_Output" onclick="dayInputOutput()">确认</button>
-                            <button type="button" class="btn btn-primary" id="day_Reset" onclick="dayReset()" style="float: right;">重置</button>
+                            <button type="reset" class="btn btn-primary" id="day_Reset" onclick="dayReset()" style="float: right;">重置</button>
                         </div>
                     </form>
                 </div>
@@ -212,14 +213,53 @@
         <div class="tab-pane" id="tab-finance">
             <div class="row feature">
                 <!-- 个人理财 -->
-                <div style="height: 500px; background-color: red;"></div>
+                <div style="height: 500px;">
+                    <table class="table table-striped">
+                        <tr>
+                            <th scope="col">LoanId</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">Money</th>
+                            <th scope="col">Intrate</th>
+                            <th scope="col">ExpectReturn</th>
+                            <th scope="col">Contents</th>
+                            <th scope="col">Buy</th>
+                        </tr>
+                        <tr id="financial_One"></tr>
+                        <tr id="financial_Two"></tr>
+                        <tr id="financial_Three"></tr>
+                        <tr id="financial_Four"></tr>
+                        <tr id="financial_Five"></tr>
+                        <tr id="financial_ix"></tr>
+                    </table>
+
+                </div>
                 <!--个人理财结束-->
             </div>
         </div>
         <div class="tab-pane" id="tab-debt">
             <div class="row feature">
                 <!-- 债务管理 -->
-                <div style="height: 500px; background-color: black;"></div>
+                <div style="height: 500px;">
+                    <table class="table table-striped">
+                        <tr>
+                            <th scope="col">LoanId</th>
+                            <th scope="col">Money</th>
+                            <th scope="col">ReturnDate</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Intrate</th>
+                            <th scope="col">Odds</th>
+                            <th scope="col">Contents</th>
+                            <th scope="col">Buy</th>
+                        </tr>
+                        <tr id="loan_One"></tr>
+                        <tr id="loan_Two"></tr>
+                        <tr id="loan_Three"></tr>
+                        <tr id="loan_Four"></tr>
+                        <tr id="loan_Five"></tr>
+                        <tr id="loan_ix"></tr>
+                    </table>
+                </div>
                 <!--债务管理结束-->
             </div>
         </div>

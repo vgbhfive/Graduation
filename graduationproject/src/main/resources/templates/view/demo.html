@@ -11,25 +11,22 @@
 </head>
 <body onload="test()">
 
-<table border="1 auto" width="60%" align="center">
+<table class="table table-striped">
     <tr>
-        <th>Id</th>
-        <th>Money</th>
-        <th>ReturnDate</th>
-        <th>Type</th>
-        <th>Intrate</th>
-        <th>Odds</th>
-        <th>Contents</th>
+        <th scope="col">LoanId</th>
+        <th scope="col">Name</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">Money</th>
+        <th scope="col">Intrate</th>
+        <th scope="col">ExpectReturn</th>
+        <th scope="col">Contents</th>
     </tr>
-    <tr th:each="loan : ${content}">
-        <th th:text="${loan.loanId}">1</th>
-        <th th:text="${loan.money}">1</th>
-        <th th:text="${loan.returnDate}">1</th>
-        <th th:text="${loan.type}">1</th>
-        <th th:text="${loan.intrate}">1</th>
-        <th th:text="${loan.odds}">1</th>
-        <th th:text="${loan.contents}">1</th>
-    </tr>
+    <tr id="financial_One"></tr>
+    <tr id="financial_Two"></tr>
+    <tr id="financial_Three"></tr>
+    <tr id="financial_Four"></tr>
+    <tr id="financial_Five"></tr>
+    <tr id="financial_ix"></tr>
 </table>
 
 </body>
@@ -59,21 +56,62 @@
         xhr.send(data);
     }
 
+    var one = document.getElementById("financial_One");
+    var two = document.getElementById("financial_Two");
+    var three = document.getElementById("financial_Three");
+    var four = document.getElementById("financial_Four");
+    var five = document.getElementById("financial_Five");
+    var six = document.getElementById("financial_Six");
+    var seven = document.getElementById("financial_Seven");
+
     test = function () {
-        requestData('/loan/one/1', 'get', {
-        }, function (res) {
+        requestData('/financial/all', 'get', {}, function (res) {
             if (res.status === 200) {
-                // statusView.innerText = '请求成功: ' + res.status
-                // resultView.innerText = JSON.stringify(res.data, '', '    ')
-                console.log('请求成功: ' + res.status);
-                console.log(JSON.stringify(res.data, '', '    '));
-                var content = [[${res.data}]];
+                console.log(JSON.stringify(res.data.data, "", "   "));
+                var x = "";
+                for (var i in res.data.data) {
+                    x += "<tr>";
+                    for (var j in res.data.data[i]) {
+                        x += "<td>" + res.data.data[i][j] + "</td>";
+                    }
+                    x += "</tr>";
+                    console.log(x);
+                    innerHtml(i, x);
+                    x = "";
+                }
             } else {
-                // statusView.innerText = '请求失败: ' + res.status
-                console.log('请求失败: ' + res.status);
+                alert('请求失败: ' + res.status);
+                //console.log('请求失败: ' + res.status);
             }
-        })
+        });
     }
+
+    innerHtml = function (i, x) {
+        switch (parseInt(i)) {
+            case 0:
+                one.innerHTML = x;
+                break;
+            case 1:
+                two.innerHTML = x;
+                break;
+            case 2:
+                three.innerHTML = x;
+                break;
+            case 3:
+                four.innerHTML = x;
+                break;
+            case 4:
+                five.innerHTML = x;
+                break;
+            case 5:
+                six.innerHTML = x;
+                break;
+            case 6:
+                seven.innerHTML = x;
+                break;
+        }
+    }
+
 </script>
 
 

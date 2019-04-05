@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class ReturnResult {
 
-    private int code;
+    private Integer code;
 
     private Object data;
 
@@ -28,7 +28,7 @@ public class ReturnResult {
         return result;
     }
 
-    public static ReturnResult error(int code, String errorMsg) {
+    public static ReturnResult error(Integer code, String errorMsg) {
         ReturnResult result = new ReturnResult();
         result.setCode(code);
         result.setData(null);
