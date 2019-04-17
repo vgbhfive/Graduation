@@ -19,12 +19,12 @@ public class ManAssetsController {
     private ManAssetsService manAssetsService;
 
     @GetMapping(value = "/all/{userId}")
-    public ReturnResult all(@PathVariable Long userId) {
+    public ReturnResult all(@PathVariable String userId) {
         return manAssetsService.all(userId);
     }
 
     @GetMapping(value = "/one/{id}")
-    public ReturnResult one(@PathVariable Long id) {
+    public ReturnResult one(@PathVariable String id) {
         return manAssetsService.all(id);
     }
 
@@ -39,7 +39,7 @@ public class ManAssetsController {
     }
 
     @PostMapping(value = "/delete/{id}")
-    public ReturnResult delete(@PathVariable Long id) {
+    public ReturnResult delete(@PathVariable String id) {
         return manAssetsService.delete(id);
     }
 

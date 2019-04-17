@@ -7,6 +7,7 @@ import cn.vgbhfive.graduationproject.utils.EmailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +47,9 @@ public class UserInfoService {
      * @param userId
      * @return 个人信息
      */
-    public ReturnResult one(Long userId) {
-        UserInfo userInfo = userInfoRepository.getOne(userId);
+    public ReturnResult one(String userId) {
+        Long user = Long.parseLong(userId);
+        UserInfo userInfo = userInfoRepository.getOne(user);
         return ReturnResult.ok(userInfo);
     }
 
@@ -58,22 +60,53 @@ public class UserInfoService {
      */
     public ReturnResult update(Map<String, String> userinfo) {
         Long id = Long.parseLong(userinfo.get("userId"));
-        if (userInfoRepository.existsById(id)) {
+        UserInfo ui = userInfoRepository.getOne(id);
+        if (ui == null) {
             return ReturnResult.error(403, "No This User!");
         }
 
         UserInfo u = new UserInfo();
-        u.setUserId(Long.parseLong(String.valueOf(userinfo.get("userId"))));
+        u.setUserId(id);
         u.setIdCard(String.valueOf(userinfo.get("idCard")));
         u.setEmail(String.valueOf(userinfo.get("email")));
         u.setPhone(String.valueOf(userinfo.get("phone")));
+        u.setRegisterDate(ui.getRegisterDate());
         u.setPreUpdateDate(new Date()); //修改时间
 
         userInfoRepository.deleteById(id);
         UserInfo save = userInfoRepository.save(u);
-        EmailUtils.sendSimpleMail(u.getEmail(), "Change User Information!",
-                "您修改了您的个人信息，若不是您自己修改,请及时修改您的密码，以防他人盗用！");
+        //EmailUtils.sendSimpleMail(u.getEmail(), "Change User Information!", "您修改了您的个人信息，若不是您自己修改,请及时修改您的密码，以防他人盗用！");
         return ReturnResult.ok(save);
+    }
+
+    /**
+     * 检查用户信息（手机号和身份证号）的正确性
+     * @param userinfo
+     * @return 错误信息或True
+     */
+    public ReturnResult check(Map<String, String> userinfo) {
+        String phone = userinfo.get("phone");
+        String card = userinfo.get("idCard");
+        UserInfo ui = userInfoRepository.getByIdCardAndPhone(card, phone);
+        if (ui.getIdCard().equals(card) && ui.getPhone().equals(phone)) {
+            return ReturnResult.ok(ui.getUserId());
+        }
+
+        return ReturnResult.error(403, "手机号或身份证号不正确！");
+    }
+
+    /**
+     * 检查是否有重复的身份信息
+     * @param card
+     * @return True/False(有/无)
+     */
+    public ReturnResult repeatIdCard(String card) {
+        List<UserInfo> userInfos = userInfoRepository.findAllByIdCard(card);
+        if (userInfos.size() > 1) {
+            return ReturnResult.error(403, "该身份证号已使用！");
+        }
+
+        return ReturnResult.ok(true);
     }
 
 }

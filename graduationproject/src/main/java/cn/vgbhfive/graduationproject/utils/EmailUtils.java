@@ -23,8 +23,9 @@ public class EmailUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailUtils.class);
 
+    //TODO NullPointException
     @Autowired
-    private static JavaMailSender javaMailSender; //null
+    private static JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private static String from;

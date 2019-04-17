@@ -15,6 +15,24 @@ elementSel = function (str) {
 	return document.getElementById(str).selectedIndex;
 }
 
+//一周过期
+function setCookie(name, value) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 60 * 60 * 1000 * 24 * 7);
+    document.cookie = name + "=" + value + ";expires=" + exp.toGMTString() + ";path=/";
+}
+
+//读取cookies
+function getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+    if (arr = document.cookie.match(reg))
+
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
 //id: change_Money
 changeMoney = function () {
 	var index = elementSel("buy_Currency");
@@ -368,8 +386,10 @@ loanMoneyChange = function () {
 	intrate = parseFloat(intrate);
 	console.log(money + "  " + date + "  " + monthMoney + " " + intrate);
 
-	var month = money * (intrate/12) * ((1 + intrate/12) ^ date) / [((1 + intrate/12) ^ date) - 1]; //Error
+	var month = money * (intrate / 1200) * [(1 + intrate/1200) ^ date] / [(1 + intrate/1200) ^ date - 1]; //Error
 	console.log(month);
+	console.log("zi" + (money * (intrate / 1200) * [(1 + intrate/1200) ^ date]));
+	console.log("mu" + ((1 + intrate/1200) ^ date - 1));
 
 	//200000*（7.05%/12）*(1+7.05%/12)^180   /    [(1+7.05%/12)^180-1] =1803.251917
 	//每月还款金额 (简称每月本息) =贷款本金 X	月利率×[（1+月利率）^ 还款月数÷[（1+月利率）^ 还款月数 ] - 1
@@ -431,7 +451,42 @@ function requestData(url, method, data, cb) {
 
 //id: day_Input_Output
 dayInputOutput = function () {
-	
+    var money = elementVal("use_Money");
+    var income = elementVal("income");
+    var use = elementSel("how_Use");
+    // var datetimes = elementVal("datetimes");
+    var contents = elementVal("other_Contents");
+    switch (use) {
+        case 0: use = "日常饮食"; break;
+        case 1: use = "交通出行"; break;
+        case 2: use = "服饰美容"; break;
+        case 3: use = "住房缴费"; break;
+        case 4: use = "文教健康"; break;
+        default: break;
+    }
+    if (getCookie("token")) {
+        requestData('/day/save', 'post', {
+            "userId": getCookie("userId"),
+            "money": money,
+            "income": income == 1 ? true : false,
+            "use": use,
+            "content": contents
+        }, function (res) {
+            if (res.status === 200) {
+                // console.log(JSON.parse(res.data));
+                alert("添加成功！");
+            } else {
+                alert("Error:" + res.data);
+            }
+        });
+    } else {
+        alert("请您先登录！");
+    }
+}
+
+//id: day_All
+dayAll = function () {
+	window.location.href = "http://localhost:8080/dayall";
 }
 
 function financialInnerHtml(i, x) {
@@ -490,45 +545,117 @@ function loanInnerHtml(i, x) {
     }
 }
 
+function assetsInnerHtml(i, x) {
+    switch (parseInt(i)) {
+        case 0:
+            var one = document.getElementById("assets_One");
+            one.innerHTML = x;break;
+        case 1:
+            var two = document.getElementById("assets_Two");
+            two.innerHTML = x;break;
+        case 2:
+            var three = document.getElementById("assets_Three");
+            three.innerHTML = x;break;
+        case 3:
+            var four = document.getElementById("assets_Four");
+            four.innerHTML = x;break;
+        case 4:
+            var five = document.getElementById("assets_Five");
+            five.innerHTML = x;break;
+        case 5:
+            var six = document.getElementById("assets_Six");
+            six.innerHTML = x;break;
+        case 6:
+            var seven = document.getElementById("assets_Seven");
+            seven.innerHTML = x;break;
+        default:
+            console.log("error!");break;
+    }
+}
+
 load = function () {
     requestData('/financial/all', 'get', {}, function (res) {
+        // console.log(JSON.parse(res.data));
+        var json = JSON.parse(res.data)["data"];
         if (res.status === 200) {
             var x = "";
-            for (var i in res.data.data) {
+            for (var i = 0; i < json["length"]; i++) {
                 x += "<tr>";
-                for (var j in res.data.data[i]) {
-                    x += "<td>" + res.data.data[i][j] + "</td>";
-                }
-                x += "<td style='padding-right: 40px;'>" + "<button type='button' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
+                x += "<td>" + json[i]["id"] + "</td>";
+                x += "<td>" + json[i]["name"] + "</td>";
+                x += "<td>" + json[i]["deadline"] + "</td>";
+                x += "<td>" + json[i]["money"] + "</td>";
+                x += "<td>" + json[i]["intrates"] + "</td>";
+                x += "<td>" + json[i]["expectReturn"] + "</td>";
+                x += "<td>" + json[i]["contents"] + "</td>";
+                x += "<td style='padding-right: 40px;'>" + "<button type='button' onclick='buyFinancial()' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
                 x += "</tr>";
                 financialInnerHtml(i, x);
                 x = "";
             }
         } else {
             alert('请求失败: ' + res.status);
-            //console.log('请求失败: ' + res.status);
         }
     });
     requestData('/loan/all', 'get', {}, function (res) {
+        // console.log(JSON.parse(res.data));
+        var json = JSON.parse(res.data)["data"];
         if (res.status === 200) {
-            //console.log(JSON.stringify(res.data.data, "", "   "));
             var x = "";
-            for (var i in res.data.data) {
+            for (var i = 0; i < json["length"]; i++) {
                 x += "<tr>";
-                for (var j in res.data.data[i]) {
-                    x += "<td>" + res.data.data[i][j] + "</td>";
-                }
-                x += "<td style='padding-right: 40px;'>" + "<button type='button' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
+                x += "<td>" + json[i]["loanId"] + "</td>";
+                x += "<td>" + json[i]["money"] + "</td>";
+                x += "<td>" + json[i]["returnDate"] + "</td>";
+                x += "<td>" + json[i]["type"] + "</td>";
+                x += "<td>" + json[i]["intrate"] + "</td>";
+                x += "<td>" + json[i]["odds"] + "</td>";
+                x += "<td>" + json[i]["contents"] + "</td>";
+                x += "<td style='padding-right: 40px;'>" + "<button onclick='buyLoan()' type='button' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
                 x += "</tr>";
                 loanInnerHtml(i, x);
                 x = "";
             }
         } else {
             alert('请求失败: ' + res.status);
-            //console.log('请求失败: ' + res.status);
         }
     });
-
+    var assets = document.getElementById("assetsTable");
+    var assetserror = document.getElementById("assetsError");
+    if (getCookie("token")) {
+        assets.style.display = "inline";
+        assetserror.style.display = "none";
+        requestData("/assets/all/"+getCookie("userId"), 'get', {}, function (res) {
+            var json = JSON.parse(res.data)["data"];
+            // console.log(json);
+            var x = "";
+            if (json["length"] == null) return;
+            for (var i = 0; i < json["length"]; i++) {
+                x += "<tr>";
+                x += "<td>" + json[i]["id"] + "</td>";
+                x += "<td>" + json[i]["money"] + "</td>";
+                x += "<td>" + json[i]["datetimes"] + "</td>";
+                x += "<td>" + json[i]["cycle"] + "</td>";
+                x += "<td>" + json[i]["property"] + "</td>";
+                x += "<td>" + json[i]["source"] + "</td>";
+                x += "<td>" + json[i]["contents"] + "</td>";
+                x += "<td style='padding-right: 40px;'>" + "<button onclick='buyLoan()' type='button' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
+                x += "</tr>";
+                assetsInnerHtml(i, x);
+                x = "";
+            }
+        })
+    } else {
+        assets.style.display = "none";
+        assetserror.style.display = "inline";
+    }
 }
 
+function buyFinancial() {
+    //TODO Financial购买
+}
+
+function buyLoan() {
+    //TODO Loan购买
+}
 

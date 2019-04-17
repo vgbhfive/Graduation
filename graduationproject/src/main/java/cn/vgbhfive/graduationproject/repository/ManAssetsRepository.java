@@ -13,6 +13,6 @@ import java.util.List;
 @Repository
 public interface ManAssetsRepository extends JpaRepository<ManAsset, Long> {
 
-    List<ManAsset> findAllById(Long userId);
+    List<ManAsset> findAllByUserId(Long userId);
 
 }

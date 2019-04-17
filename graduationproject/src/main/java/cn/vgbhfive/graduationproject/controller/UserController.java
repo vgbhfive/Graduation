@@ -28,4 +28,9 @@ public class UserController {
 
     // /auth/login登陆接口，Spring Security自己实现
 
+    @PostMapping(value = "/updatepwd")
+    public ReturnResult updatePwd(@RequestBody Map<String, String> pwdMap) {
+        return userService.updatePwd(pwdMap);
+    }
+
 }

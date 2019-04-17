@@ -48,8 +48,29 @@
 <!--顶部导航结束-->
 
 <!--主体-->
-<div>
-    
+<div align="center" style="padding-top: 130px;">
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" class="form-control" placeholder="Enter Email" style="width: 400px;" value=""
+        onblur="checkEmail()">
+        <small style="display: none" class="text text-danger" id="emailerror">格式有误！</small>
+    </div>
+    <div class="form-group">
+        <label>IdCard</label>
+        <input type="text" id="idCard" class="form-control" placeholder="Enter IdCard" style="width: 400px;" value=""
+        onblur="checkIdcard()">
+        <small style="display: none" class="text text-danger" id="idcarderror">格式有误！</small>
+        <small style="display: none" class="text text-danger" id="idcarderror2">该身份证号已使用！</small>
+    </div>
+    <div class="form-group">
+        <label>Phone</label>
+        <input type="text" id="phone" class="form-control" placeholder="Enter Phone" style="width: 400px;" value=""
+        onblur="checkPhone()">
+        <small style="display: none" class="text text-danger" id="phoneerror">格式有误！</small>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" onclick="updateUserInfo()" id="update_date_userinfo">修改</button>
+    </div>
 </div>
 <!--主题结束-->
 

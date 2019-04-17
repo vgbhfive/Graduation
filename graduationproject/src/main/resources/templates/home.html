@@ -201,9 +201,10 @@
                             <label for="other_Contents">Other Contents</label>
                             <textarea class="form-control" rows="3" placeholder="无" id="other_Contents"></textarea>
                         </div>
-                        <div class="form-group" style="padding-left: 150px; padding-right: 200px;">
-                            <button type="button" class="btn btn-primary" id="day_Input_Output" onclick="dayInputOutput()">确认</button>
-                            <button type="reset" class="btn btn-primary" id="day_Reset" onclick="dayReset()" style="float: right;">重置</button>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" id="day_Input_Output" style="float: left; margin-left: 130px;" onclick="dayInputOutput()">确认</button>
+                            <button type="reset" class="btn btn-primary" id="day_Reset" style="margin-left: 130px;">重置</button>
+                            <button type="button" class="btn btn-primary" id="day_All" style="margin-left: 130px;" onclick="dayAll()">总览</button>
                         </div>
                     </form>
                 </div>
@@ -216,7 +217,7 @@
                 <div style="height: 500px;">
                     <table class="table table-striped">
                         <tr>
-                            <th scope="col">LoanId</th>
+                            <th scope="col">FinancialId</th>
                             <th scope="col">Name</th>
                             <th scope="col">Deadline</th>
                             <th scope="col">Money</th>
@@ -230,7 +231,8 @@
                         <tr id="financial_Three"></tr>
                         <tr id="financial_Four"></tr>
                         <tr id="financial_Five"></tr>
-                        <tr id="financial_ix"></tr>
+                        <tr id="financial_Six"></tr>
+                        <tr id="financial_Seven"></tr>
                     </table>
 
                 </div>
@@ -257,7 +259,8 @@
                         <tr id="loan_Three"></tr>
                         <tr id="loan_Four"></tr>
                         <tr id="loan_Five"></tr>
-                        <tr id="loan_ix"></tr>
+                        <tr id="loan_Six"></tr>
+                        <tr id="loan_Seven"></tr>
                     </table>
                 </div>
                 <!--债务管理结束-->
@@ -266,8 +269,31 @@
         <div class="tab-pane" id="tab-loan">
             <div class="row feature">
                 <!-- 财务管理 -->
-                <div style="height: 500px; background-color: pink;"></div>
+                <div style="height: 500px; display: none;" id="assetsTable">
+                    <table class="table table-striped">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Money</th>
+                            <th scope="col">Datetimes</th>
+                            <th scope="col">Cycle</th>
+                            <th scope="col">Property</th>
+                            <th scope="col">Source</th>
+                            <th scope="col">Contents</th>
+                            <th scope="col">Buy</th>
+                        </tr>
+                        <tr id="assets_One"></tr>
+                        <tr id="assets_Two"></tr>
+                        <tr id="assets_Three"></tr>
+                        <tr id="assets_Four"></tr>
+                        <tr id="assets_Five"></tr>
+                        <tr id="assets_Six"></tr>
+                        <tr id="assets_Seven"></tr>
+                    </table>
+                </div>
                 <!--财务管理结束-->
+                <div id="assetsError" style="height: 500px; display: inline">
+                    <h1 class="text text-danger" style="text-align: center;">您还未登录！</h1>
+                </div>
             </div>
         </div>
         <div class="tab-pane" id="tab-utils">
@@ -605,30 +631,22 @@
     <!--综述-->
     <div class="row" id="summary-container" style="margin: 0 auto; padding-top: 30px;">
         <div class="col-md-4">
-            <img class="img-circle" src="images/44.jpg" alt="chrome">
-
+            <img class="img-circle" src="images/44.jpg" alt="bank">
             <h2>新规后P2P平台集体“傍”银行</h2>
-
             <p>7月18日央行等十部委联合发布《关于促进互联网金融健康发展的指导意见》要求P2P平台资金第三方存管之后，10天的时间里已有多家P2P平台宣布与银行达成存管合作，集体“傍”银行。</p>
-
             <p><a class="btn btn-default" href="http://finance.people.com.cn/money/n/2015/0731/c218900-27389725.html" role="button">点我了解更多</a></p>
             <!-- http://finance.people.com.cn/money/n/2015/0731/c218900-27389725.html -->
         </div>
         <div class="col-md-4">
-            <img class="img-circle" src="images/22.jpg" alt="firefox">
-
+            <img class="img-circle" src="images/22.jpg" alt="intrate">
             <h2>银行理财收益率“风光不再”降至4.88%</h2>
-
             <p>入夏以来A股跌宕起伏，当征战股市的投资者准备购买理财产品时，却发现银行理财收益率大降。上周北京地区发行的人民币非结构性银行理财的平均收益率已降至4.88%，平均投资期限则长达131天。</p>
-
             <p><a class="btn btn-default" href="http://finance.people.com.cn/money/n/2015/0731/c218900-27389800.html" role="button">点我了解更多</a></p>
             <!-- http://finance.people.com.cn/money/n/2015/0731/c218900-27389800.html -->
         </div>
         <div class="col-md-4">
-            <img class="img-circle" src="images/77.png" alt="safari">
-
+            <img class="img-circle" src="images/77.png" alt="people">
             <h2>大额存单发行机构扩至102家</h2>
-
             <p>未来，市民要购买大额存单，将会有更多的银行机构可以选择。昨日，北京晨报记者从中国外汇交易中心获悉，发行大额存单金融机构将从此前的9家扩大至102家。</p>
             <br>
             <p><a class="btn btn-default" href="http://finance.people.com.cn/bank/n/2015/0731/c202331-27389640.html" role="button">点我了解更多</a></p>

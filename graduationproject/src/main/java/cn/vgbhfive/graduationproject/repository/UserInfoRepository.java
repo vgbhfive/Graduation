@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**
@@ -13,5 +14,9 @@ import java.util.List;
  */
 @Repository
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
+
+    List<UserInfo> findAllByIdCard(String card);
+
+    UserInfo getByIdCardAndPhone(String idCard, String phone);
 
 }

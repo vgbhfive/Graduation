@@ -25,8 +25,9 @@ public class ManAssetsService {
      * @param userId
      * @return 个人资产信息集合
      */
-    public ReturnResult all(Long userId) {
-        List<ManAsset> manAssets = manAssetsRepository.findAllById(userId);
+    public ReturnResult all(String userId) {
+        Long u = Long.parseLong(userId);
+        List<ManAsset> manAssets = manAssetsRepository.findAllByUserId(u);
         return ReturnResult.ok(manAssets);
     }
 
@@ -35,8 +36,9 @@ public class ManAssetsService {
      * @param id
      * @return 个人资产信息
      */
-    public ReturnResult one(Long id) {
-        ManAsset manAsset = manAssetsRepository.getOne(id);
+    public ReturnResult one(String id) {
+        Long i = Long.parseLong(id);
+        ManAsset manAsset = manAssetsRepository.getOne(i);
         return ReturnResult.ok(manAsset);
     }
 
@@ -90,8 +92,9 @@ public class ManAssetsService {
      * @param id
      * @return 个人资产信息
      */
-    public ReturnResult delete(Long id) {
-        manAssetsRepository.deleteById(id);
+    public ReturnResult delete(String id) {
+        Long i = Long.parseLong(id);
+        manAssetsRepository.deleteById(i);
         return ReturnResult.ok(true);
     }
 

@@ -14,17 +14,6 @@ function setCookie(name, value) {
     document.cookie = name + "=" + value + ";expires=" + exp.toGMTString() + ";path=/";
 }
 
-//读取cookies
-function getCookie(name) {
-    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-
-    if (arr = document.cookie.match(reg))
-
-        return unescape(arr[2]);
-    else
-        return null;
-}
-
 //请求
 function requestData(url, method, data, cb) {
     var xhr = new XMLHttpRequest();
@@ -129,4 +118,9 @@ repeat = function () {
             }
         });
     }
+}
+
+//register
+register_Box = function () {
+    window.location.href = "http://localhost:8080/register";
 }

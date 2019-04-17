@@ -26,7 +26,6 @@ public class UserInfo {
     @Id
     private Long userId; //用户ID
 
-    @Pattern(regexp = "^(\\\\d{18,18}|\\\\d{15,15}|(\\\\d{17,17}[x|X]))$", message = "IDCard Format Error!")
     private String idCard; //身份证
 
     private String phone; //手机

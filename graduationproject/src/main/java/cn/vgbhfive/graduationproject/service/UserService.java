@@ -1,15 +1,19 @@
 package cn.vgbhfive.graduationproject.service;
 
 import cn.vgbhfive.graduationproject.entity.User;
+import cn.vgbhfive.graduationproject.entity.UserInfo;
 import cn.vgbhfive.graduationproject.model.ReturnResult;
+import cn.vgbhfive.graduationproject.repository.UserInfoRepository;
 import cn.vgbhfive.graduationproject.repository.UserRepository;
 import cn.vgbhfive.graduationproject.utils.EmailUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.ReturnedType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +32,9 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private UserInfoRepository userInfoRepository;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
@@ -42,6 +49,13 @@ public class UserService {
         user.setRole("ROLE_USER");
         User save = userRepository.save(user);
 
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(user.getId());
+        userInfo.setRegisterDate(new Date());
+        userInfo.setPreUpdateDate(new Date());
+        UserInfo saveUserInfo = userInfoRepository.save(userInfo);
+
+        logger.info(saveUserInfo.toString());
         logger.info(save.toString());
         return ReturnResult.ok(save);
     }
@@ -55,6 +69,54 @@ public class UserService {
         List<User> users = userRepository.findByUsernameIs(username);
         //logger.info(users.toString());
         return ReturnResult.ok(users.size() == 1 ? true : false);
+    }
+
+    /**
+     * 更改用户密码
+     * @param pwdMap
+     * @return 更改后的用户基础登录信息
+     */
+    public ReturnResult updatePwd2(Map<String, String> pwdMap) {
+        User beforeUser = userRepository.getOne(Long.parseLong(pwdMap.get("userId")));
+
+        User user = new User();
+        user.setId(beforeUser.getId());
+        user.setUsername(beforeUser.getUsername());
+        user.setPassword(bCryptPasswordEncoder.encode(pwdMap.get("password")));
+        user.setRole(beforeUser.getRole());
+
+        userRepository.delete(beforeUser); //删除原来的旧数据
+        User save = userRepository.save(user); //插入更新后的数据
+        return ReturnResult.ok(save);
+    }
+
+//    /**
+//     * 更改用户密码的另一种实现方式
+//     * @param pwdMap
+//     * @return 更改后的用户基础登录信息
+//     */
+//    public ReturnResult updatePwd1(Map<String, String> pwdMap) {
+//        userRepository.updatePasswordByUserId(bCryptPasswordEncoder.encode(pwdMap.get("password")),
+//                Long.parseLong(pwdMap.get("userId")));
+//
+//        User afterUser = userRepository.getOne(Long.parseLong(pwdMap.get("userId"))); //新数据
+//
+//        return ReturnResult.ok(afterUser);
+//    }
+
+    /**
+     * 更改用户密码的新一种实现方式
+     * @param pwdMap
+     * @return 更改后的用户基本登录信息
+     */
+    public ReturnResult updatePwd(Map<String, String> pwdMap) {
+        User beforeUser = userRepository.getOne(Long.parseLong(pwdMap.get("userId")));
+        UserInfo beforeUserInfo = userInfoRepository.getOne(Long.parseLong(pwdMap.get("userId")));
+
+        beforeUser.setPassword(bCryptPasswordEncoder.encode(pwdMap.get("password")));
+
+        userRepository.saveAndFlush(beforeUser);
+        return ReturnResult.ok(beforeUser);
     }
 
 }

@@ -50,4 +50,9 @@ public class URLController {
         return "view/userinfo";
     }
 
+    @GetMapping(value = "/dayall")
+    public String dayallURL() {
+        return "view/dayall";
+    }
+
 }
