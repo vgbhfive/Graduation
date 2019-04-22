@@ -489,110 +489,43 @@ dayAll = function () {
 	window.location.href = "http://localhost:8080/dayall";
 }
 
-function financialInnerHtml(i, x) {
-    switch (parseInt(i)) {
-        case 0:
-            var one = document.getElementById("financial_One");
-            one.innerHTML = x;break;
-        case 1:
-            var two = document.getElementById("financial_Two");
-            two.innerHTML = x;break;
-        case 2:
-            var three = document.getElementById("financial_Three");
-            three.innerHTML = x;break;
-        case 3:
-            var four = document.getElementById("financial_Four");
-            four.innerHTML = x;break;
-        case 4:
-            var five = document.getElementById("financial_Five");
-            five.innerHTML = x;break;
-        case 5:
-            var six = document.getElementById("financial_Six");
-            six.innerHTML = x;break;
-        case 6:
-            var seven = document.getElementById("financial_Seven");
-            seven.innerHTML = x;break;
-        default:
-            console.log("error!");break;
-    }
-}
-
-function loanInnerHtml(i, x) {
-    switch (parseInt(i)) {
-        case 0:
-            var one = document.getElementById("loan_One");
-            one.innerHTML = x;break;
-        case 1:
-            var two = document.getElementById("loan_Two");
-            two.innerHTML = x;break;
-        case 2:
-            var three = document.getElementById("loan_Three");
-            three.innerHTML = x;break;
-        case 3:
-            var four = document.getElementById("loan_Four");
-            four.innerHTML = x;break;
-        case 4:
-            var five = document.getElementById("loan_Five");
-            five.innerHTML = x;break;
-        case 5:
-            var six = document.getElementById("loan_Six");
-            six.innerHTML = x;break;
-        case 6:
-            var seven = document.getElementById("loan_Seven");
-            seven.innerHTML = x;break;
-        default:
-            console.log("error!");break;
-    }
-}
-
-function assetsInnerHtml(i, x) {
-    switch (parseInt(i)) {
-        case 0:
-            var one = document.getElementById("assets_One");
-            one.innerHTML = x;break;
-        case 1:
-            var two = document.getElementById("assets_Two");
-            two.innerHTML = x;break;
-        case 2:
-            var three = document.getElementById("assets_Three");
-            three.innerHTML = x;break;
-        case 3:
-            var four = document.getElementById("assets_Four");
-            four.innerHTML = x;break;
-        case 4:
-            var five = document.getElementById("assets_Five");
-            five.innerHTML = x;break;
-        case 5:
-            var six = document.getElementById("assets_Six");
-            six.innerHTML = x;break;
-        case 6:
-            var seven = document.getElementById("assets_Seven");
-            seven.innerHTML = x;break;
-        default:
-            console.log("error!");break;
-    }
-}
-
+//loadData
 load = function () {
     requestData('/financial/all', 'get', {}, function (res) {
         // console.log(JSON.parse(res.data));
         var json = JSON.parse(res.data)["data"];
         if (res.status === 200) {
             var x = "";
+            var dataView = document.getElementsByClassName("financialTable")[0];
+            var table = document.createElement('table');
+            table.classList.add("table");
+            table.classList.add("table-striped");
+            var thead = document.createElement('thead');
+            thead.innerHTML = '<tr><th>FinancialId</th><th>Name</th><th>Money</th><th>Deadline</th><th>Intrate</th><th>ExpectReturn</th><th>Contents</th><th>购买</th></tr>';
+            table.appendChild(thead);
+            var tbody = document.createElement('tbody');
             for (var i = 0; i < json["length"]; i++) {
-                x += "<tr>";
-                x += "<td>" + json[i]["id"] + "</td>";
-                x += "<td>" + json[i]["name"] + "</td>";
-                x += "<td>" + json[i]["deadline"] + "</td>";
-                x += "<td>" + json[i]["money"] + "</td>";
-                x += "<td>" + json[i]["intrates"] + "</td>";
-                x += "<td>" + json[i]["expectReturn"] + "</td>";
-                x += "<td>" + json[i]["contents"] + "</td>";
-                x += "<td style='padding-right: 40px;'>" + "<button type='button' onclick='buyFinancial()' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
-                x += "</tr>";
-                financialInnerHtml(i, x);
-                x = "";
+                (function (i) {
+                    x += "<td>" + json[i]["id"] + "</td>";
+                    x += "<td>" + json[i]["name"] + "</td>";
+                    x += "<td>" + json[i]["money"] + "</td>";
+                    x += "<td>" + json[i]["deadline"] + "</td>";
+                    x += "<td>" + json[i]["intrates"] + "</td>";
+                    x += "<td>" + json[i]["expectReturn"] + "</td>";
+                    x += "<td>" + json[i]["contents"] + "</td>";
+                    var row = document.createElement('tr');
+                    row.innerHTML = x;
+                    var op = document.createElement('button');
+                    op.innerText = "购买";
+                    op.setAttribute('style', 'height: 35px; width: 70px; padding-right: 10px; margin: 0 auto;');
+                    op.addEventListener("click", function () { buyFinancial(json[i]); }, false);
+                    row.appendChild(op);
+                    tbody.appendChild(row);
+                    x = "";
+                }(i));
             }
+            table.appendChild(tbody);
+            dataView.appendChild(table);
         } else {
             alert('请求失败: ' + res.status);
         }
@@ -602,24 +535,45 @@ load = function () {
         var json = JSON.parse(res.data)["data"];
         if (res.status === 200) {
             var x = "";
+            var dataView = document.getElementsByClassName("loanTable")[0];
+            var table = document.createElement('table');
+            table.classList.add("table");
+            table.classList.add("table-striped");
+            var thead = document.createElement('thead');
+            thead.innerHTML = '<tr><th>LoanId</th><th>Money</th><th>ReturnDate</th><th>Type</th><th>Intrate</th><th>Odds</th><th>Contents</th><th>购买</th></tr>';
+            table.appendChild(thead);
+            var tbody = document.createElement('tbody');
             for (var i = 0; i < json["length"]; i++) {
-                x += "<tr>";
-                x += "<td>" + json[i]["loanId"] + "</td>";
-                x += "<td>" + json[i]["money"] + "</td>";
-                x += "<td>" + json[i]["returnDate"] + "</td>";
-                x += "<td>" + json[i]["type"] + "</td>";
-                x += "<td>" + json[i]["intrate"] + "</td>";
-                x += "<td>" + json[i]["odds"] + "</td>";
-                x += "<td>" + json[i]["contents"] + "</td>";
-                x += "<td style='padding-right: 40px;'>" + "<button onclick='buyLoan()' type='button' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
-                x += "</tr>";
-                loanInnerHtml(i, x);
-                x = "";
+                (function (i) {
+                    x += "<td>" + json[i]["loanId"] + "</td>";
+                    x += "<td>" + json[i]["money"] + "</td>";
+                    x += "<td>" + json[i]["returnDate"] + "</td>";
+                    x += "<td>" + json[i]["type"] + "</td>";
+                    x += "<td>" + json[i]["intrate"] + "</td>";
+                    x += "<td>" + json[i]["odds"] + "</td>";
+                    x += "<td>" + json[i]["contents"] + "</td>";
+                    var row = document.createElement('tr');
+                    row.innerHTML = x;
+                    var op = document.createElement('button');
+                    op.innerText = "购买";
+                    op.setAttribute('style', 'height: 35px; width: 70px; padding-right: 10px; margin: 0 auto;');
+                    op.addEventListener('click', function () { buyLoan(json[i]); }, false);
+                    row.appendChild(op);
+                    tbody.appendChild(row);
+                    x = "";
+                }(i));
             }
+            table.appendChild(tbody);
+            // console.log(dataView);
+            dataView.appendChild(table);
         } else {
             alert('请求失败: ' + res.status);
         }
     });
+    loadPersonAssets();
+}
+
+loadPersonAssets = function () {
     var assets = document.getElementById("assetsTable");
     var assetserror = document.getElementById("assetsError");
     if (getCookie("token")) {
@@ -629,21 +583,31 @@ load = function () {
             var json = JSON.parse(res.data)["data"];
             // console.log(json);
             var x = "";
+            var dataView = document.getElementsByClassName("assetsTable")[0];
+            var table = document.createElement('table');
+            table.classList.add("table");
+            table.classList.add("table-striped");
+            var thead = document.createElement('tr');
+            thead.innerHTML = '<tr><th>Id</th><th>Money</th><th>Datatimes</th><th>Cycle</th><th>Property</th><th>Source</th><th>Contents</th></tr>';
+            table.appendChild(thead);
+            var tbody = document.createElement('tbody');
             if (json["length"] == null) return;
             for (var i = 0; i < json["length"]; i++) {
-                x += "<tr>";
-                x += "<td>" + json[i]["id"] + "</td>";
+                // console.log(json[i]);
+                x += "<td>" + json[i]['id'] + "</td>";
                 x += "<td>" + json[i]["money"] + "</td>";
                 x += "<td>" + json[i]["datetimes"] + "</td>";
                 x += "<td>" + json[i]["cycle"] + "</td>";
                 x += "<td>" + json[i]["property"] + "</td>";
                 x += "<td>" + json[i]["source"] + "</td>";
                 x += "<td>" + json[i]["contents"] + "</td>";
-                x += "<td style='padding-right: 40px;'>" + "<button onclick='buyLoan()' type='button' style='padding-left: 5px; padding-right: 10px;'>购买</button> " + "</td>";
-                x += "</tr>";
-                assetsInnerHtml(i, x);
+                var row = document.createElement('tr');
+                row.innerHTML = x;
+                tbody.appendChild(row);
                 x = "";
             }
+            table.appendChild(tbody);
+            dataView.appendChild(table);
         })
     } else {
         assets.style.display = "none";
@@ -651,11 +615,41 @@ load = function () {
     }
 }
 
-function buyFinancial() {
-    //TODO Financial购买
+function buyFinancial(data) {
+    requestData('/assets/save', 'post', {
+        "userId" : getCookie("userId"),
+        "money" : data["money"],
+        "cycle" : data["deadline"],
+        "property" : data["name"],
+        "source" : "理财",
+        "content" : data["contents"]
+    }, function (res) {
+        if (res.status === 200) {
+            // console.log(JSON.parse(res.data));
+            // loadPersonAssets();
+            alert("购买成功!");
+        } else {
+            alert("Error:" + res.data);
+        }
+    });
 }
 
-function buyLoan() {
-    //TODO Loan购买
+function buyLoan(data) {
+    requestData('/assets/save', 'post', {
+        "userId" : getCookie("userId"),
+        "money" : data["money"],
+        "cycle" : data["returnDate"],
+        "property" : data["type"],
+        "source" : "贷款",
+        "content" : data["contents"]
+    }, function (res) {
+        if (res.status === 200) {
+            // console.log(JSON.parse(res.data));
+            // loadPersonAssets();
+            alert("购买成功!");
+        } else {
+            alert("Error:" + res.data);
+        }
+    });
 }
 

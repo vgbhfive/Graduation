@@ -1,6 +1,7 @@
 package cn.vgbhfive.graduationproject.test;
 
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 安全机制测试
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/tasks")
+@ApiIgnore
 public class TaskController {
 
     @GetMapping

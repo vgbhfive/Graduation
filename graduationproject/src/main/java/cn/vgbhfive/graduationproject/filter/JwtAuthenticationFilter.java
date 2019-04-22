@@ -75,6 +75,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 返回创建成功的token, 这里创建的token只是单纯的token, 按照jwt的规定，最后请求的格式应该是 `Bearer token`
         response.setHeader("token", JwtTokenUtils.TOKEN_PREFIX + token);
         response.setHeader("userId", userId);
+        response.setHeader("userName", jwtUser.getUsername());
     }
 
     @Override

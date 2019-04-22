@@ -22,6 +22,9 @@ public class UserInfoService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
+    @Autowired
+    private EmailUtils emailUtils;
+
     /**
      * 添加个人详细信息
      * @param userInfomation
@@ -37,7 +40,7 @@ public class UserInfoService {
         userInfo.setPreUpdateDate(new Date()); //修改时间
 
         userInfo = userInfoRepository.save(userInfo);
-        EmailUtils.sendSimpleMail(userInfo.getEmail(), "注册成功！",
+        emailUtils.sendSimpleMail(userInfo.getEmail(), "注册成功！",
                 "感谢您使用本理财系统，我们将为您竭尽所能，时刻保护好您的财产，再次感谢您！");
         return ReturnResult.ok(userInfo);
     }
@@ -75,7 +78,7 @@ public class UserInfoService {
 
         userInfoRepository.deleteById(id);
         UserInfo save = userInfoRepository.save(u);
-        //EmailUtils.sendSimpleMail(u.getEmail(), "Change User Information!", "您修改了您的个人信息，若不是您自己修改,请及时修改您的密码，以防他人盗用！");
+        emailUtils.sendSimpleMail(u.getEmail(), "Change User Information!", "您修改了您的个人信息，若不是您自己修改,请及时修改您的密码，以防他人盗用！");
         return ReturnResult.ok(save);
     }
 
@@ -88,8 +91,8 @@ public class UserInfoService {
         String phone = userinfo.get("phone");
         String card = userinfo.get("idCard");
         UserInfo ui = userInfoRepository.getByIdCardAndPhone(card, phone);
-        if (ui.getIdCard().equals(card) && ui.getPhone().equals(phone)) {
-            return ReturnResult.ok(ui.getUserId());
+        if (ui != null && ui.getIdCard().equals(card) && ui.getPhone().equals(phone)) {
+            return ReturnResult.ok(ui);
         }
 
         return ReturnResult.error(403, "手机号或身份证号不正确！");

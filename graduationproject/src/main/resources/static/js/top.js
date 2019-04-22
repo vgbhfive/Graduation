@@ -46,15 +46,17 @@ Log_In = function () {
 
 //登出
 Sign_Out = function () {
-    //console.log("已删除Token!");
     setCookie("token", "");
+    setCookie("userId", "");
+    setCookie("userName", "");
+    alert("已退出登录！")
 }
 
 //用户信息页面分流
 User_Info = function () {
     if (getCookie("token")) {
         window.location.href = "http://localhost:8080/userinfo";
-    } else {T
+    } else {
         alert("请先登录！");
         window.location.href = "http://localhost:8080/login";
     }
@@ -84,31 +86,30 @@ function requestData(url, method, data, cb) {
 
 //加载用户信息
 loadUserInfo = function () {
-    if (getCookie("userId")) {
-        // console.log(getCookie("userId"));
-        requestData("/userinfo/one/"+getCookie("userId"), 'get', {}, function (res) {
-            // console.log(JSON.parse(res.data)["data"]);
-            if (res.status === 200) {
-                var json = JSON.parse(res.data)["data"];
-                var email = document.getElementById("email");
-                var card = document.getElementById("idCard");
-                var phone = document.getElementById("phone");
-                if (json["email"] != null) {
-                    email.value = json["email"];
-                }
-                if (json["idCard"] != null) {
-                    card.value = json["idCard"];
-                }
-                if (json["phone"] != null) {
-                    phone.value = json["phone"];
-                }
-            } else {
-                alert("Error:" + res.data);
-            }
-        });
-    } else {
-        alert("System Error!");
+    if (!getCookie("userId")) {
+        return;
     }
+    // console.log(getCookie("userId"));
+    requestData("/userinfo/one/"+getCookie("userId"), 'get', {}, function (res) {
+        // console.log(JSON.parse(res.data)["data"]);
+        if (res.status === 200) {
+            var json = JSON.parse(res.data)["data"];
+            var email = document.getElementById("email");
+            var card = document.getElementById("idCard");
+            var phone = document.getElementById("phone");
+            if (json["email"] != null) {
+                email.value = json["email"];
+            }
+            if (json["idCard"] != null) {
+                card.value = json["idCard"];
+            }
+            if (json["phone"] != null) {
+                phone.value = json["phone"];
+            }
+        } else {
+            alert("Error:" + res.data);
+        }
+    });
 }
 
 //检查邮箱地址格式
@@ -126,12 +127,11 @@ checkEmail = function () {
     }
 }
 
-//检查身份证格式
+//检查身份证格式并检查是否重复
 checkIdcard = function () {
     var cardReg = /^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[Xx])$/;
     var card = element("idCard");
     var carderror = element("idcarderror");
-    var carderror2 = element("idcarderror2");
     if (card.value == "") {
         return;
     }
@@ -141,20 +141,19 @@ checkIdcard = function () {
         carderror.style.display = "inline";
         return;
     }
-    // TODO 检测身份证号是否重用 test
     requestData("/userinfo/checkcard/"+card.value, 'get', {}, function (res) {
         if (res.status === 200) {
             var json = JSON.parse(res.data);
-            if (json["code"] === 200) {
-                carderror2.style.display = "none";
+            // console.log(json)
+            if (json["data"]) {
+                carderror.style.display = "inline";
             } else {
-                carderror2.style.display = "inline";
+                carderror.style.display = "none";
             }
         } else {
             alert("Error:" + res.data);
         }
-    })
-    
+    });
 }
 
 //检查手机格式
@@ -169,6 +168,22 @@ checkPhone = function () {
         phoneerror.style.display = "none";
     } else {
         phoneerror.style.display = "inline";
+    }
+}
+
+//检查身份证号格式
+checkIdcard2 = function () {
+    var cardReg = /^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[Xx])$/;
+    var card = element("idCard");
+    var carderror = element("idcarderror");
+    if (card.value == "") {
+        return;
+    }
+    if (cardReg.test(card.value)) {
+        carderror.style.display = "none";
+    } else {
+        carderror.style.display = "inline";
+        return;
     }
 }
 
@@ -224,34 +239,8 @@ function dayInnerHtml(i, x) {
     }
 }
 
-//加载用户的全部日常收入和支出信息
-loadDayAll = function () {
-    requestData("/day/all/"+getCookie("userId"), 'get', {}, function (res) {
-        if (res.status === 200) {
-            var json = JSON.parse(res.data)["data"];
-            // console.log(json);
-            var x = "";
-            for (var i = 0; i < json["length"]; i++) {
-                x += "<tr>";
-                x += "<td>" + json[i]["dayId"] + "</td>";
-                x += "<td>" + json[i]["money"] + "</td>";
-                x += "<td>" + json[i]["income"] + "</td>";
-                x += "<td>" + json[i]["howUse"] + "</td>";
-                x += "<td>" + json[i]["datetimes"] + "</td>";
-                x += "<td>" + json[i]["contents"] + "</td>";
-                x += "</tr>";
-                dayInnerHtml(i, x);
-                x = "";
-            }
-        } else {
-            alert("Error" + res.data);
-        }
-    });
-}
-
 //修改用户密码
 updatePassword = function () {
-    // TODO 检查密码是否一致
     var repeatPwd = element("repeatPwd")
     if (elementVal("password1") != elementVal("password2")) {
         repeatPwd.style.display = "inline";
@@ -265,17 +254,18 @@ updatePassword = function () {
         "idCard" : elementVal("idCard")
     }, function (res) {
         if (res.status === 200) {
-            console.log(JSON.parse(res.data));
+            // console.log(JSON.parse(res.data));
             var json = JSON.parse(res.data);
             if (json["code"] === 200) {
-                console.log(json["data"]);
-                // TODO 修改密码
+                // console.log(json["data"]["userId"]);
                 requestData('/auth/updatepwd', 'post', {
                     "password" : elementVal("password1"),
-                    "userId" : json["userId"]
+                    "userId" : json["data"]["userId"]
                 }, function (res) {
                     if (res.status === 200) {
-                        console.log(JSON.parse(res.data));
+                        // console.log(JSON.parse(res.data));
+                        alert("修改密码成功！");
+                        window.location.href = "http://localhost:8080/login"
                     } else {
                         alert("Error:" + res.data);
                     }

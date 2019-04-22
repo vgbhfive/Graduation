@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{images/lyl.ico}" type="image/x-icon">
     <title>Home</title>
 
     <script type="text/javascript" th:src="@{js/jquery-1.11.1.js}"></script>
@@ -104,8 +105,8 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#feature-tab" data-tab="tab-day">日常收支</a></li>
                         <li><a href="#feature-tab" data-tab="tab-finance">个人理财</a></li>
-                        <li><a href="#feature-tab" data-tab="tab-debt">债务管理</a></li>
-                        <li><a href="#feature-tab" data-tab="tab-loan">贷款管理</a></li>
+                        <li><a href="#feature-tab" data-tab="tab-loan">个人债务</a></li>
+                        <li><a href="#feature-tab" data-tab="tab-assets">财务管理</a></li>
                         <li><a href="#feature-tab" data-tab="tab-utils">小工具</a></li>
                     </ul>
                 </li>
@@ -165,8 +166,8 @@
     <ul class="nav nav-tabs" role="tablist" id="feature-tab">
         <li class="active"><a href="#tab-day" role="tab" data-toggle="tab">日常收支</a></li>
         <li><a href="#tab-finance" role="tab" data-toggle="tab">个人理财</a></li>
-        <li><a href="#tab-debt" role="tab" data-toggle="tab">债务管理</a></li>
-        <li><a href="#tab-loan" role="tab" data-toggle="tab">财务管理</a></li>
+        <li><a href="#tab-loan" role="tab" data-toggle="tab">个人债务</a></li>
+        <li><a href="#tab-assets" role="tab" data-toggle="tab">财务管理</a></li>
         <li><a href="#tab-utils" role="tab" data-toggle="tab">小工具</a></li>
     </ul>
     <div class="tab-content">
@@ -214,84 +215,26 @@
         <div class="tab-pane" id="tab-finance">
             <div class="row feature">
                 <!-- 个人理财 -->
-                <div style="height: 500px;">
-                    <table class="table table-striped">
-                        <tr>
-                            <th scope="col">FinancialId</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Deadline</th>
-                            <th scope="col">Money</th>
-                            <th scope="col">Intrate</th>
-                            <th scope="col">ExpectReturn</th>
-                            <th scope="col">Contents</th>
-                            <th scope="col">Buy</th>
-                        </tr>
-                        <tr id="financial_One"></tr>
-                        <tr id="financial_Two"></tr>
-                        <tr id="financial_Three"></tr>
-                        <tr id="financial_Four"></tr>
-                        <tr id="financial_Five"></tr>
-                        <tr id="financial_Six"></tr>
-                        <tr id="financial_Seven"></tr>
-                    </table>
-
+                <div style="height: 500px;" id="financialTable" class="financialTable">
                 </div>
                 <!--个人理财结束-->
             </div>
         </div>
-        <div class="tab-pane" id="tab-debt">
+        <div class="tab-pane" id="tab-loan">
             <div class="row feature">
                 <!-- 债务管理 -->
-                <div style="height: 500px;">
-                    <table class="table table-striped">
-                        <tr>
-                            <th scope="col">LoanId</th>
-                            <th scope="col">Money</th>
-                            <th scope="col">ReturnDate</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Intrate</th>
-                            <th scope="col">Odds</th>
-                            <th scope="col">Contents</th>
-                            <th scope="col">Buy</th>
-                        </tr>
-                        <tr id="loan_One"></tr>
-                        <tr id="loan_Two"></tr>
-                        <tr id="loan_Three"></tr>
-                        <tr id="loan_Four"></tr>
-                        <tr id="loan_Five"></tr>
-                        <tr id="loan_Six"></tr>
-                        <tr id="loan_Seven"></tr>
-                    </table>
+                <div style="height: 500px;" id="loanTable" class="loanTable">
                 </div>
                 <!--债务管理结束-->
             </div>
         </div>
-        <div class="tab-pane" id="tab-loan">
+        <div class="tab-pane" id="tab-assets">
             <div class="row feature">
                 <!-- 财务管理 -->
-                <div style="height: 500px; display: none;" id="assetsTable">
-                    <table class="table table-striped">
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Money</th>
-                            <th scope="col">Datetimes</th>
-                            <th scope="col">Cycle</th>
-                            <th scope="col">Property</th>
-                            <th scope="col">Source</th>
-                            <th scope="col">Contents</th>
-                            <th scope="col">Buy</th>
-                        </tr>
-                        <tr id="assets_One"></tr>
-                        <tr id="assets_Two"></tr>
-                        <tr id="assets_Three"></tr>
-                        <tr id="assets_Four"></tr>
-                        <tr id="assets_Five"></tr>
-                        <tr id="assets_Six"></tr>
-                        <tr id="assets_Seven"></tr>
-                    </table>
+                <div style="height: 500px; display: none;" id="assetsTable" class="assetsTable">
                 </div>
                 <!--财务管理结束-->
-                <div id="assetsError" style="height: 500px; display: inline">
+                <div style="height: 500px; display: inline" id="assetsError" >
                     <h1 class="text text-danger" style="text-align: center;">您还未登录！</h1>
                 </div>
             </div>

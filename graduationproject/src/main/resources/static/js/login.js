@@ -26,7 +26,8 @@ function requestData(url, method, data, cb) {
                 status: xhr.status,
                 data: result,
                 header_token: xhr.getResponseHeader("token"),
-                header_userId: xhr.getResponseHeader("userId")
+                header_userId: xhr.getResponseHeader("userId"),
+                header_userName: xhr.getResponseHeader("userName")
             });
         }
     }
@@ -48,13 +49,14 @@ signIn = function (event) {
         "rememberMe": checked
     }, function (res) {
         if (res.status === 200) {
-            // document.cookie = res.header_token; //存储Token
-            // document.cookie = "userId=" + res.header_userId; //存储UserId
+            // console.log(res);
             setCookie("token", res.header_token);
             setCookie("userId", res.header_userId);
+            setCookie("userName", res.header_userName);
             // console.log(document.cookie);
             // console.log(getCookie("token"));
             // console.log(getCookie("userId"))
+            // console.log(getCookie("userName"));
             alert("登陆成功！");
             window.location.href = "http://localhost:8080/home";
         } else {

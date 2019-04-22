@@ -1,5 +1,7 @@
 package cn.vgbhfive.graduationproject.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -9,12 +11,16 @@ import lombok.Data;
  * @author: Vgbh
  */
 @Data
+@ApiModel
 public class ReturnResult {
 
+    @ApiModelProperty("状态码")
     private Integer code;
 
+    @ApiModelProperty("封装数据")
     private Object data;
 
+    @ApiModelProperty("报错信息")
     private String errorMsg;
 
     public ReturnResult() {

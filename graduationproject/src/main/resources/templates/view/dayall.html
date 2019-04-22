@@ -2,11 +2,13 @@
 <html lang="en" xmlns:th=http://www.thymeleaf.org>
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" th:href="@{images/lyl.ico}" type="image/x-icon">
     <title>Day All</title>
 
     <script type="text/javascript" th:src="@{js/jquery-1.11.1.js}"></script>
     <script type="text/javascript" th:src="@{js/bootstrap.js}"></script>
     <script type="text/javascript" th:src="@{js/top.js}"></script>
+    <script type="text/javascript" th:src="@{js/echarts.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}" />
 
 </head>
@@ -69,10 +71,13 @@
         </table>
     </div>
 </div>
+
+<div style="width: 700px; height: 300px; margin: 0 auto;" id="charts">
+</div>
 <!--主题结束-->
 
 <!--footer-->
-<div style="padding-top: 500px;">
+<div style="padding-top: 70px;">
     <footer style="text-align: center;">
         <p class="text-center">&copy; 2019 西北工业大学明德学院</p>
         <p class="text-center"> 20121502 151219 李云龙 </p>
@@ -82,4 +87,95 @@
 
 
 </body>
+
+<script type="text/javascript">
+    localStorage.setItem('one', 0);
+    localStorage.setItem('two', 0);
+    localStorage.setItem('three', 0);
+    localStorage.setItem('four', 0);
+    localStorage.setItem('five', 0);
+    //加载用户的全部日常收入和支出信息
+    loadDayAll = function () {
+        if (!getCookie("userId")) return;
+        requestData("/day/all/"+getCookie("userId"), 'get', {}, function (res) {
+            if (res.status === 200) {
+                var json = JSON.parse(res.data)["data"];
+                // console.log(json);
+                var x = "";
+                if (json == "") return;
+                for (var i = 0; i < json["length"]; i++) {
+                    x += "<tr>";
+                    x += "<td>" + json[i]["dayId"] + "</td>";
+                    x += "<td>" + json[i]["money"] + "</td>";
+                    x += "<td>" + json[i]["income"] + "</td>";
+                    x += "<td>" + json[i]["howUse"] + "</td>";
+                    x += "<td>" + json[i]["datetimes"] + "</td>";
+                    x += "<td>" + json[i]["contents"] + "</td>";
+                    x += "</tr>";
+                    dayInnerHtml(i, x);
+                    x = "";
+                    if (json[i]["howUse"].localeCompare("日常饮食")) {
+                        localStorage.setItem('one', parseInt(localStorage.getItem('one'))+1);
+                    } else if (json[i]["howUse"].localeCompare("交通出行")) {
+                        localStorage.setItem('two', parseInt(localStorage.getItem('two'))+1);
+                    } else if (json[i]["howUse"].localeCompare("服饰美容")) {
+                        localStorage.setItem('three', parseInt(localStorage.getItem('three'))+1);
+                    } else if (json[i]["howUse"].localeCompare("住房缴费")) {
+                        localStorage.setItem('four', parseInt(localStorage.getItem('four'))+1);
+                    } else if (json[i]["howUse"].localeCompare("文教健康")) {
+                        localStorage.setItem('five', parseInt(localStorage.getItem('five'))+1);
+                    }
+                }
+            } else {
+                alert("Error" + res.data);
+            }
+        });
+    }
+
+    setTimeout(function () {
+        var chart = echarts.init(document.getElementById("charts"));
+        var option = {
+            title : {
+                text: getCookie("userName") + " - 收入与支出饼状图",
+                subtext: '详细信息见上方',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['日常饮食','交通出行','服饰美容','住房缴费','文教健康']
+            },
+            series : [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:parseInt(localStorage.getItem('one')), name:'日常饮食'},
+                        {value:parseInt(localStorage.getItem('two')), name:'交通出行'},
+                        {value:parseInt(localStorage.getItem('three')), name:'服饰美容'},
+                        {value:parseInt(localStorage.getItem('four')), name:'住房缴费'},
+                        {value:parseInt(localStorage.getItem('five')), name:'文教健康'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        }
+        chart.setOption(option);
+    }, 1000);
+
+
+</script>
+
 </html>

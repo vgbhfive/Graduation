@@ -111,11 +111,10 @@ public class UserService {
      */
     public ReturnResult updatePwd(Map<String, String> pwdMap) {
         User beforeUser = userRepository.getOne(Long.parseLong(pwdMap.get("userId")));
-        UserInfo beforeUserInfo = userInfoRepository.getOne(Long.parseLong(pwdMap.get("userId")));
-
         beforeUser.setPassword(bCryptPasswordEncoder.encode(pwdMap.get("password")));
 
         userRepository.saveAndFlush(beforeUser);
+        logger.info(beforeUser.toString());
         return ReturnResult.ok(beforeUser);
     }
 

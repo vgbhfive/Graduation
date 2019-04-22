@@ -8,7 +8,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
 
@@ -23,12 +22,11 @@ public class EmailUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailUtils.class);
 
-    //TODO NullPointException
     @Autowired
-    private static JavaMailSender javaMailSender;
+    private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
-    private static String from;
+    private String from;
 
     /**
      * 发送普通邮件
@@ -37,7 +35,7 @@ public class EmailUtils {
      * @param content
      * @return
      */
-    public static Boolean sendSimpleMail(String to, String subject, String content) {
+    public Boolean sendSimpleMail(String to, String subject, String content) {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setFrom(from);
         mail.setTo(to);
@@ -62,7 +60,7 @@ public class EmailUtils {
      * @param context
      * @return
      */
-    public static Boolean sendHtmlMail(String to, String subject, String context) {
+    public Boolean sendHtmlMail(String to, String subject, String context) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
@@ -73,10 +71,10 @@ public class EmailUtils {
             helper.setText(context, true);
 
             javaMailSender.send(message);
-            logger.info("Send Simple Mail Successful!");
+            logger.info("Send MIME Mail Successful!");
             return true;
         } catch (Exception e) {
-            logger.info("Send MiME Mail Error! "+ e);
+            logger.info("Send MIME Mail Error! "+ e);
             return false;
         }
     }
