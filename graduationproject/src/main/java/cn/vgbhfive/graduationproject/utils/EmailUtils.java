@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import javax.mail.internet.MimeMessage;
@@ -35,6 +36,7 @@ public class EmailUtils {
      * @param content
      * @return
      */
+    @Async
     public Boolean sendSimpleMail(String to, String subject, String content) {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setFrom(from);
@@ -60,6 +62,7 @@ public class EmailUtils {
      * @param context
      * @return
      */
+    @Async
     public Boolean sendHtmlMail(String to, String subject, String context) {
         MimeMessage message = javaMailSender.createMimeMessage();
 

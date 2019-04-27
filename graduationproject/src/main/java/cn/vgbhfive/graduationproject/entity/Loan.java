@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "loan")
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 @ApiModel
 public class Loan {
 

@@ -17,7 +17,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "day_income_expenditure")
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 @ApiModel
 public class DayInOut {
 

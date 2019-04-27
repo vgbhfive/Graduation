@@ -32,7 +32,7 @@ function getCookie(name) {
 
 //前往Home页面
 Home = function () {
-    window.location.href = "http://localhost:8080/home";
+    window.location.href = "/home";
 }
 
 //前往登陆页面
@@ -40,7 +40,7 @@ Log_In = function () {
     if (getCookie("token")) {
         alert("您已登录！");
     } else {
-        window.location.href = "http://localhost:8080/login";
+        window.location.href = "/login";
     }
 }
 
@@ -49,16 +49,17 @@ Sign_Out = function () {
     setCookie("token", "");
     setCookie("userId", "");
     setCookie("userName", "");
+    setCookie("role", "");
     alert("已退出登录！")
 }
 
 //用户信息页面分流
 User_Info = function () {
     if (getCookie("token")) {
-        window.location.href = "http://localhost:8080/userinfo";
+        window.location.href = "/userinfo";
     } else {
         alert("请先登录！");
-        window.location.href = "http://localhost:8080/login";
+        window.location.href = "/login";
     }
 }
 
@@ -265,7 +266,7 @@ updatePassword = function () {
                     if (res.status === 200) {
                         // console.log(JSON.parse(res.data));
                         alert("修改密码成功！");
-                        window.location.href = "http://localhost:8080/login"
+                        window.location.href = "/login"
                     } else {
                         alert("Error:" + res.data);
                     }

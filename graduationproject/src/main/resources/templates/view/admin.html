@@ -17,17 +17,82 @@
 
 	<hr class="feature-divider">
 
-	<!-- Financial -->
-	<h3 align="center">Financial</h3>
-	<div style="height: 400px; width: 70%; background-color: red;">
+    <!-- Financial -->
 
-	</div>
+	<form>
+        <h3 align="center">Financial</h3>
+        <div style="width: 70%; margin: 0 auto;">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" id="financialOne" placeholder="Enter Name" style="width: 400px;">
+            </div>
+            <div class="form-group">
+                <label>Deadline</label>
+                <input type="text" class="form-control" id="financialTwo" placeholder="Enter Deadline" style="width: 400px;">
+            </div>
+            <div class="form-group">
+                <label>Money</label>
+                <input type="text" class="form-control" id="financialThree" placeholder="Enter Money" style="width: 400px;">
+            </div>
+            <div class="form-group">
+                <label>Intrate</label>
+                <input type="text" class="form-control" id="financialFour" placeholder="Enter Intrate" style="width: 400px;">
+            </div>
+            <div class="form-group">
+                <label>ExpectReturn</label>
+                <input type="text" class="form-control" id="financialFive" placeholder="Enter ExpectReturn" style="width: 400px;">
+            </div>
+            <div class="form-group">
+                <label>Contents</label>
+                <input type="text" class="form-control" id="financialSix" placeholder="Enter Contents" style="width: 400px;">
+            </div>
+            <br>
+            <button type="button" class="btn btn-primary" id="insert_Financial" onclick="insertFinancial()">Insert</button>
+        </div>
+    </form>
+
+    <hr class="feature-divider">
 
 	<!-- Loan -->
 	<h3 align="center">Loan</h3>
-	<div style="height: 400px; width: 70%; background-color: black; ">
+	<div style="width: 70%; margin: 0 auto;">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" id="loanOne" placeholder="Enter Name" style="width: 400px;">
+        </div>
+        <div class="form-group">
+            <label>Deadline</label>
+            <input type="text" class="form-control" id="loanTwo" placeholder="Enter Deadline" style="width: 400px;">
+        </div>
+        <div class="form-group">
+            <label>Money</label>
+            <input type="text" class="form-control" id="loanThree" placeholder="Enter Money" style="width: 400px;">
+        </div>
+        <div class="form-group">
+            <label>Intrate</label>
+            <input type="text" class="form-control" id="loanFour" placeholder="Enter Intrate" style="width: 400px;">
+        </div>
+        <div class="form-group">
+            <label>ExpectReturn</label>
+            <input type="text" class="form-control" id="loanFive" placeholder="Enter ExpectReturn" style="width: 400px;">
+        </div>
+        <div class="form-group">
+            <label>Contents</label>
+            <input type="text" class="form-control" id="loanSix" placeholder="Enter Contents" style="width: 400px;">
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary" id="insert_loan" onclick="insertFinancial()">Insert</button>
+    </div>
 
-	</div>
+
+    <!--footer-->
+    <div style="padding-top: 150px;">
+        <footer style="text-align: center;">
+            <p class="text-center">&copy; 2019 西北工业大学明德学院</p>
+            <p class="text-center"> 20121502 151219 李云龙 </p>
+        </footer>
+    </div>
+    <!--footer结束-->
 
 </body>
 </html>

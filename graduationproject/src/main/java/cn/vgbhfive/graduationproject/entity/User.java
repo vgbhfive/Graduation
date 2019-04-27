@@ -13,10 +13,10 @@ import javax.persistence.*;
  * @time: 2019/1/30
  * @author: Vgbh
  */
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 @ApiModel
 public class User {
 

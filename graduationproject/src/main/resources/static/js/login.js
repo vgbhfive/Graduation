@@ -27,7 +27,8 @@ function requestData(url, method, data, cb) {
                 data: result,
                 header_token: xhr.getResponseHeader("token"),
                 header_userId: xhr.getResponseHeader("userId"),
-                header_userName: xhr.getResponseHeader("userName")
+                header_userName: xhr.getResponseHeader("userName"),
+                header_role: xhr.getResponseHeader("role")
             });
         }
     }
@@ -42,6 +43,9 @@ signIn = function (event) {
     event.preventDefault();
     var checked = 0;
     document.querySelector('.form-check-input:checked') === null ? checked = 0  : checked = 1;
+    if (elementVal("username") === "" || elementVal("password") === "") {
+        return;
+    }
 
     requestData('/auth/login', 'post', {
         "username": elementVal("username"),
@@ -49,16 +53,17 @@ signIn = function (event) {
         "rememberMe": checked
     }, function (res) {
         if (res.status === 200) {
-            // console.log(res);
+            console.log(res);
             setCookie("token", res.header_token);
             setCookie("userId", res.header_userId);
             setCookie("userName", res.header_userName);
+            // setCookie("role", res.header_role);
             // console.log(document.cookie);
             // console.log(getCookie("token"));
             // console.log(getCookie("userId"))
             // console.log(getCookie("userName"));
             alert("登陆成功！");
-            window.location.href = "http://localhost:8080/home";
+            window.location.href = "/home";
         } else {
             alert('请求失败: ' + res.data);
         }
@@ -68,7 +73,7 @@ signIn = function (event) {
 
 //FindBack
 find_Back = function () {
-    window.location.href = "http://localhost:8080/back";
+    window.location.href = "/back";
 }
 
 //Logon
@@ -92,7 +97,7 @@ Log_On = function () {
         }, function (res) {
             if (res.status === 200) {
                 //console.log(JSON.stringify(res.data, "", "   "));
-                window.location.href = "http://localhost:8080/login";
+                window.location.href = "/login";
             } else {
                 alert('Error' + res.data);
             }
@@ -124,5 +129,5 @@ repeat = function () {
 
 //register
 register_Box = function () {
-    window.location.href = "http://localhost:8080/register";
+    window.location.href = "/register";
 }

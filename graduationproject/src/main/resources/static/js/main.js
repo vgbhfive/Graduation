@@ -370,6 +370,12 @@ studyIncomeMoneyChange = function () {
 
 //id: loan_Money_Change
 //TODO: Error
+/**
+ * 等额本息
+ *
+ * 这个问题困扰了我好久。
+ *
+ */
 loanMoneyChange = function () {
 	var loanMoney = elementVal("loan_Money");
 	var returnDate = elementVal("return_Date");
@@ -486,7 +492,7 @@ dayInputOutput = function () {
 
 //id: day_All
 dayAll = function () {
-	window.location.href = "http://localhost:8080/dayall";
+	window.location.href = "/dayall";
 }
 
 //loadData
