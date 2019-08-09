@@ -460,7 +460,7 @@ dayInputOutput = function () {
     var money = elementVal("use_Money");
     var income = elementVal("income");
     var use = elementSel("how_Use");
-    // var datetimes = elementVal("datetimes");
+    var datetimes = elementVal("datetimes");
     var contents = elementVal("other_Contents");
     switch (use) {
         case 0: use = "日常饮食"; break;
@@ -468,6 +468,7 @@ dayInputOutput = function () {
         case 2: use = "服饰美容"; break;
         case 3: use = "住房缴费"; break;
         case 4: use = "文教健康"; break;
+        case 5: use = "个人收入"; break;
         default: break;
     }
     if (getCookie("token")) {
@@ -475,6 +476,7 @@ dayInputOutput = function () {
             "userId": getCookie("userId"),
             "money": money,
             "income": income == 1 ? true : false,
+            "datetimes": datetimes,
             "use": use,
             "content": contents
         }, function (res) {

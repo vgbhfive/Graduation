@@ -53,7 +53,7 @@ signIn = function (event) {
         "rememberMe": checked
     }, function (res) {
         if (res.status === 200) {
-            console.log(res);
+            // console.log(res);
             setCookie("token", res.header_token);
             setCookie("userId", res.header_userId);
             setCookie("userName", res.header_userName);

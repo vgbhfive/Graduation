@@ -3,13 +3,15 @@ package cn.vgbhfive.graduationproject.service;
 import cn.vgbhfive.graduationproject.entity.DayInOut;
 import cn.vgbhfive.graduationproject.model.ReturnResult;
 import cn.vgbhfive.graduationproject.repository.DayRepository;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.ReturnedType;
 import org.springframework.stereotype.Service;
 
-import javax.security.sasl.SaslClient;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @time: 2019/03/13
@@ -45,7 +47,9 @@ public class DayService {
         day.setMoney(Integer.parseInt(dayInOut.get("money")));
         day.setIncome(Boolean.parseBoolean(dayInOut.get("income")));
         day.setHowUse(dayInOut.get("use"));
-        day.setDatetimes(new Date());
+        try {
+            day.setDatetimes(new SimpleDateFormat("yyyy-MM-dd").parse(dayInOut.get("datetimes")));
+        } catch (ParseException e) { e.printStackTrace(); }
         day.setContents(dayInOut.get("content"));
 
         DayInOut one = dayRepository.save(day);

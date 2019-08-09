@@ -145,7 +145,7 @@ checkIdcard = function () {
     requestData("/userinfo/checkcard/"+card.value, 'get', {}, function (res) {
         if (res.status === 200) {
             var json = JSON.parse(res.data);
-            // console.log(json)
+            console.log(json)
             if (json["data"]) {
                 carderror.style.display = "inline";
             } else {

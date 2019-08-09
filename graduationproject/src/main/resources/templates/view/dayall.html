@@ -94,6 +94,7 @@
     localStorage.setItem('three', 0);
     localStorage.setItem('four', 0);
     localStorage.setItem('five', 0);
+    localStorage.setItem('six', 0);
     //加载用户的全部日常收入和支出信息
     loadDayAll = function () {
         if (!getCookie("userId")) return;
@@ -114,16 +115,23 @@
                     x += "</tr>";
                     dayInnerHtml(i, x);
                     x = "";
-                    if (json[i]["howUse"].localeCompare("日常饮食")) {
+                    if (!json[i]["howUse"].localeCompare("日常饮食")) {
                         localStorage.setItem('one', parseInt(localStorage.getItem('one'))+1);
-                    } else if (json[i]["howUse"].localeCompare("交通出行")) {
+                    }
+                    if (!json[i]["howUse"].localeCompare("交通出行")) {
                         localStorage.setItem('two', parseInt(localStorage.getItem('two'))+1);
-                    } else if (json[i]["howUse"].localeCompare("服饰美容")) {
+                    }
+                    if (!json[i]["howUse"].localeCompare("服饰美容")) {
                         localStorage.setItem('three', parseInt(localStorage.getItem('three'))+1);
-                    } else if (json[i]["howUse"].localeCompare("住房缴费")) {
+                    }
+                    if (!json[i]["howUse"].localeCompare("住房缴费")) {
                         localStorage.setItem('four', parseInt(localStorage.getItem('four'))+1);
-                    } else if (json[i]["howUse"].localeCompare("文教健康")) {
+                    }
+                    if (!json[i]["howUse"].localeCompare("文教健康")) {
                         localStorage.setItem('five', parseInt(localStorage.getItem('five'))+1);
+                    }
+                    if (!json[i]["howUse"].localeCompare('个人收入')) {
+                        localStorage.setItem('six', parseInt(localStorage.getItem('six'))+1);
                     }
                 }
             } else {
@@ -147,7 +155,7 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['日常饮食','交通出行','服饰美容','住房缴费','文教健康']
+                data: ['日常饮食','交通出行','服饰美容','住房缴费','文教健康', '个人收入']
             },
             series : [
                 {
@@ -160,7 +168,8 @@
                         {value:parseInt(localStorage.getItem('two')), name:'交通出行'},
                         {value:parseInt(localStorage.getItem('three')), name:'服饰美容'},
                         {value:parseInt(localStorage.getItem('four')), name:'住房缴费'},
-                        {value:parseInt(localStorage.getItem('five')), name:'文教健康'}
+                        {value:parseInt(localStorage.getItem('five')), name:'文教健康'},
+                        {value:parseInt(localStorage.getItem('six')), name:'个人收入'}
                     ],
                     itemStyle: {
                         emphasis: {
